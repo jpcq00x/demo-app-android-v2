@@ -113,16 +113,11 @@
         <activity
             android:name=".activity.DeGroupDetailActivity"
             android:screenOrientation="portrait">
-
-
         </activity>
-
 
         <activity
             android:name=".activity.DeConversationSettingActivity"
-
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

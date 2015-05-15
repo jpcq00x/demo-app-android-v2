@@ -51,7 +51,7 @@ public class DeGroupListFragment extends BaseFragment implements AdapterView.OnI
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.de_fr_group_list, null);
+        View view = inflater.inflate(R.layout.de_fr_group_list, container,false);
         mGroupListView = (ListView) view.findViewById(R.id.de_group_list);
         mGroupListView.setItemsCanFocus(false);
         mDialog = new LoadingDialog(getActivity());

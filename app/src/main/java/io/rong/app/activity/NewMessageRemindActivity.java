@@ -159,7 +159,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                         mStartTimeNofication.setText(mStartTime);
                         SharedPreferences.Editor editor = DemoContext.getInstance().getSharedPreferences().edit();
                         editor.putString("START_TIME", mStartTime);
-                        editor.commit();
+                        editor.apply();
 
                         if (DemoContext.getInstance().getSharedPreferences() != null) {
                             String endtime = DemoContext.getInstance().getSharedPreferences().getString("END_TIME", null);
@@ -191,7 +191,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                         mEndTimeNofication.setText(mEndTime);
                         SharedPreferences.Editor editor = DemoContext.getInstance().getSharedPreferences().edit();
                         editor.putString("END_TIME", mEndTime);
-                        editor.commit();
+                        editor.apply();
 
                         if (DemoContext.getInstance().getSharedPreferences() != null) {
                             String starttime = DemoContext.getInstance().getSharedPreferences().getString("START_TIME", null);
@@ -313,7 +313,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                         editor = DemoContext.getInstance().getSharedPreferences().edit();
                         editor.putString("START_TIME", "23:59:59");
                         editor.putString("END_TIME", "00:00:00");
-                        editor.commit();
+                        editor.apply();
                     }
                 }
 
@@ -323,7 +323,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                 mCloseNotifacation.setVisibility(View.GONE);
                 editor = DemoContext.getInstance().getSharedPreferences().edit();
                 editor.remove("IS_SETTING");
-                editor.commit();
+                editor.apply();
                 break;
         }
         return false;
@@ -351,7 +351,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                                 Log.e(TAG, "----yb----设置会话通知周期-onSuccess");
                                 SharedPreferences.Editor editor = DemoContext.getInstance().getSharedPreferences().edit();
                                 editor.putBoolean("IS_SETTING", true);
-                                editor.commit();
+                                editor.apply();
                             }
 
                             @Override

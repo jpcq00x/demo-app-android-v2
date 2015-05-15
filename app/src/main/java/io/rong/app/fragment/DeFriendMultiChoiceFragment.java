@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
@@ -61,7 +62,7 @@ public class DeFriendMultiChoiceFragment extends DeFriendListFragment implements
             }
 
             mConversationType = Conversation.ConversationType
-                    .valueOf(uri.getLastPathSegment().toUpperCase());
+                    .valueOf(uri.getLastPathSegment().toUpperCase(Locale.getDefault()));
 
             if (TextUtils.isEmpty(targetIds)) {
             } else {

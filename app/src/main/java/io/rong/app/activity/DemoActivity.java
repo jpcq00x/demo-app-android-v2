@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
@@ -185,9 +186,9 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 targetIds = intent.getData().getQueryParameter("targetIds");
                 mDiscussionId = intent.getData().getQueryParameter("discussionId");
                 if (targetId != null) {
-                    mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
+                    mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
                 } else if (targetIds != null)
-                    mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
+                    mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
             }
 
             if (fragment != null) {
@@ -329,17 +330,19 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 if (mConversationType == Conversation.ConversationType.PUBLICSERVICE || mConversationType == Conversation.ConversationType.APPSERVICE) {
                     RongIM.getInstance().startPublicAccountInfo(this, mConversationType, targetId);
                 } else {
-
+                    //通过targetId 和 会话类型 打开指定的设置页面
                     if (!TextUtils.isEmpty(targetId)) {
                         Uri uri = Uri.parse("demo://" + getApplicationInfo().packageName).buildUpon().appendPath("conversationSetting")
                                 .appendPath(mConversationType.getName()).appendQueryParameter("targetId", targetId).build();
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(uri);
                         startActivity(intent);
+                        //当你刚刚创建完讨论组以后获得的是 targetIds
                     } else if (!TextUtils.isEmpty(targetIds)) {
 
                         UriFragment fragment = (UriFragment) getSupportFragmentManager().getFragments().get(0);
                         fragment.getUri();
+                        //得到讨论组的 targetId
                         targetId = fragment.getUri().getQueryParameter("targetId");
 
                         if (!TextUtils.isEmpty(targetId)) {
@@ -348,10 +351,8 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(uri);
                             startActivity(intent);
-
                         } else {
                             WinToast.toast(DemoActivity.this, "讨论组尚未创建成功");
-
                         }
                     }
                 }

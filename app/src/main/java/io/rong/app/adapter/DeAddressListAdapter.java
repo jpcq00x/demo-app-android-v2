@@ -82,7 +82,7 @@ public class DeAddressListAdapter extends DePinnedHeaderAdapter<Friend> implemen
 
     @Override
     protected View newView(Context context, int partition, List<Friend> data, int position, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_addresslist, null);
+        View view = mInflater.inflate(R.layout.de_item_addresslist, parent,false);
         ViewHolder holder = new ViewHolder();
         newSetTag(view, holder, position, data);
         view.setTag(holder);
@@ -112,7 +112,7 @@ public class DeAddressListAdapter extends DePinnedHeaderAdapter<Friend> implemen
 
     @Override
     protected View newHeaderView(Context context, int partition, List<Friend> data, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_friend_index, null);
+        View view = mInflater.inflate(R.layout.de_item_friend_index, parent,false);
         view.setTag(view.findViewById(R.id.index));
         return view;
     }

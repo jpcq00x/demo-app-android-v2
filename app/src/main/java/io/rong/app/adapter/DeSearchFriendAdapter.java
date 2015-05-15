@@ -45,7 +45,7 @@ public class DeSearchFriendAdapter extends android.widget.BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if(convertView == null || convertView.getTag() == null){
-            convertView = mLayoutInflater.inflate(R.layout.de_item_search,null);
+            convertView = mLayoutInflater.inflate(R.layout.de_item_search,parent,false);
             viewHolder = new ViewHolder();
             viewHolder.mSearchName = (TextView) convertView.findViewById(R.id.search_item_name);
             viewHolder.mImageView = (AsyncImageView) convertView.findViewById(R.id.search_adapter_img);

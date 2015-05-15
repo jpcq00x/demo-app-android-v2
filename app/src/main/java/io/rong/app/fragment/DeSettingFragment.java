@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Locale;
+
 import io.rong.app.R;
 import io.rong.app.activity.DeFriendListActivity;
 import io.rong.imkit.RongContext;
@@ -29,8 +31,7 @@ public class DeSettingFragment extends DispatchResultFragment  {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.de_ac_friend_setting, null);
-
+        View view = inflater.inflate(R.layout.de_ac_friend_setting, container,false);
         init();
         return view;
     }
@@ -43,9 +44,9 @@ public class DeSettingFragment extends DispatchResultFragment  {
             final String delimiter = intent.getData().getQueryParameter("delimiter");
 
             if (targetId != null) {
-                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
+                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
             } else if (targetIds != null)
-                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
+                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
 //                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getQueryParameter("type").toUpperCase());
             Log.e(TAG, "----  targetId----:" +targetId+ ",targetIds----" + targetIds + ",mConversationType--" + mConversationType );
 
@@ -54,7 +55,7 @@ public class DeSettingFragment extends DispatchResultFragment  {
                 public void startMemberSelect(Context context, Conversation.ConversationType conversationType, String targetId) {
 
                     if (targetId != null)
-                        mConversationType = Conversation.ConversationType.valueOf(getActivity().getIntent().getData().getLastPathSegment().toUpperCase());
+                        mConversationType = Conversation.ConversationType.valueOf(getActivity().getIntent().getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
 
                     startActivity(new Intent(getActivity(), DeFriendListActivity.class));
 

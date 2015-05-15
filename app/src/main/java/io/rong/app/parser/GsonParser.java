@@ -47,7 +47,7 @@ public class GsonParser<T extends Serializable> extends JsonObjectParser<T> {
                     String[] cookievalues = headers[i].getValue().split(";");
                     SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
                     edit.putString("DEMO_COOKIE", cookievalues[0]);
-                    edit.commit();
+                    edit.apply();
                 }
             }
         }

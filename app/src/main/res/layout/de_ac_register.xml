@@ -113,7 +113,7 @@
                 android:background="@drawable/rc_ed_public_service_search_selector"
                 android:gravity="left|center_vertical"
                 android:hint="@string/register_input_password"
-                android:password="true"
+                android:inputType="textPassword"
                 android:singleLine="true"
                 android:textColor="@android:color/white" />
 

@@ -34,8 +34,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="8dp"
-
-                android:padding="@dimen/px_to_dip_16" />
+                android:padding="8dp" />
         </FrameLayout>
 
     </RelativeLayout>

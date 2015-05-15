@@ -22,14 +22,12 @@ import io.rong.app.model.Friend;
 import io.rong.app.model.FriendSectionIndexer;
 import io.rong.app.ui.DePinnedHeaderAdapter;
 import me.add1.resource.Resource;
-import io.rong.imkit.widget.AsyncImageView ;
+import io.rong.imkit.widget.AsyncImageView;
 
 @SuppressLint("UseSparseArrays")
 public class DeBlackListAdapter extends DePinnedHeaderAdapter<Friend> implements Filterable {
 
-    private static String TAG =DeBlackListAdapter.class.getSimpleName() ;
     private LayoutInflater mInflater;
-//    private FriendFilter mFilter;
     private ArrayList<View> mViewList;
 
     public DeBlackListAdapter(Context context, List<Friend> friends) {
@@ -44,8 +42,6 @@ public class DeBlackListAdapter extends DePinnedHeaderAdapter<Friend> implements
     }
 
     public void setAdapterData(List<Friend> friends) {
-
-
 
         HashMap<Integer, Integer> hashMap = new HashMap<Integer, Integer>();
 
@@ -67,14 +63,12 @@ public class DeBlackListAdapter extends DePinnedHeaderAdapter<Friend> implements
                 hashMap.put(key, length);
             }
         }
-
         updateCollection(result);
-
     }
 
     @Override
     protected View newView(Context context, int partition, List<Friend> data, int position, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_addresslist,null);
+        View view = mInflater.inflate(R.layout.de_item_addresslist, parent, false);
         ViewHolder holder = new ViewHolder();
         newSetTag(view, holder, position, data);
         view.setTag(holder);
@@ -91,21 +85,18 @@ public class DeBlackListAdapter extends DePinnedHeaderAdapter<Friend> implements
         Friend friend = data.get(position);
         name.setText(friend.getNickname());
 
-        Resource res =new Resource( friend.getPortrait());
+        Resource res = new Resource(friend.getPortrait());
 
         photo.setResource(res);
 
         photo.setTag(position);
-
         holder.friend = friend;
-
-
 
     }
 
     @Override
     protected View newHeaderView(Context context, int partition, List<Friend> data, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_friend_index, null);
+        View view = mInflater.inflate(R.layout.de_item_friend_index, parent, false);
         view.setTag(view.findViewById(R.id.index));
         return view;
     }
@@ -115,10 +106,8 @@ public class DeBlackListAdapter extends DePinnedHeaderAdapter<Friend> implements
         Object objTag = view.getTag();
         if (objTag != null) {
             ((TextView) objTag).setText(String.valueOf(data.get(0).getSearchKey()));
-
         }
     }
-
 
     @Override
     protected View newView(Context context, int position, ViewGroup group) {

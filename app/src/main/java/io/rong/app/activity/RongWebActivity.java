@@ -1,5 +1,6 @@
 package io.rong.app.activity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.webkit.WebView;
@@ -11,6 +12,7 @@ import io.rong.app.R;
 /**
  * Created by Administrator on 2015/3/20.
  */
+@SuppressLint("SetJavaScriptEnabled")
 public class RongWebActivity extends BaseActionBarActivity{
 
     private WebView mWebView = null;

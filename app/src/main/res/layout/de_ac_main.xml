@@ -8,12 +8,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_to_dip_78"
+        android:layout_height="39dp"
         android:background="@color/group_list_liner">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_to_dip_76"
+            android:layout_height="38dp"
             android:layout_alignParentTop="true"
             android:background="@color/main_title_backgroud"
             android:orientation="horizontal">
@@ -32,7 +32,8 @@
                     android:gravity="center"
                     android:text="@string/main_conversation"
                     android:textColor="@color/black_textview"
-                    android:textSize="@dimen/px_to_dip_32"/>
+
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/de_num"
@@ -58,12 +59,12 @@
                     android:gravity="center"
                     android:text="@string/main_group"
                     android:textColor="@color/black_textview"
-                    android:textSize="@dimen/px_to_dip_32"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     style="@style/DemoMainNewMassage"
                     android:textColor="@color/main_regist"
-                    android:layout_marginRight="@dimen/px_to_dip_14"
+                    android:layout_marginRight="7dp"
                     android:visibility="gone"/>
             </RelativeLayout>
 
@@ -81,12 +82,12 @@
                     android:gravity="center"
                     android:text="@string/main_chatroom"
                     android:textColor="@color/black_textview"
-                    android:textSize="@dimen/px_to_dip_32"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     style="@style/DemoMainNewMassage"
                     android:textColor="@color/main_regist"
-                    android:layout_marginRight="@dimen/px_to_dip_7"
+                    android:layout_marginRight="4dp"
                     android:visibility="gone"/>
             </RelativeLayout>
 
@@ -104,11 +105,11 @@
                     android:gravity="center"
                     android:text="@string/main_customer"
                     android:textColor="@color/black_textview"
-                    android:textSize="@dimen/px_to_dip_32"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     style="@style/DemoMainNewMassage"
-                    android:layout_marginRight="@dimen/px_to_dip_14"
+                    android:layout_marginRight="7dp"
                     android:text="20"
                     android:textColor="@color/main_regist"
                     android:visibility="gone"/>
@@ -127,7 +128,6 @@
         android:id="@+id/main_viewpager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:background="#ffffff"
         android:flipInterval="30"

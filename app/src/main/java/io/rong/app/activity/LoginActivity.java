@@ -368,7 +368,7 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
 
                     SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
                     edit.putString("DEMO_USERID", userId);
-                    edit.commit();
+                    edit.apply();
                     RongIM.getInstance().setUserInfoAttachedState(true);
                     RongIM.getInstance().setCurrentUserInfo(new UserInfo(userId, null, null));
 
@@ -399,7 +399,7 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
             SharedPreferences.Editor editor = DemoContext.getInstance().getSharedPreferences().edit();
             editor.putString(INTENT_PASSWORD, mPassWordEt.getText().toString());
             editor.putString(INTENT_IMAIL, mUserNameEt.getText().toString());
-            editor.commit();
+            editor.apply();
         }
 
 
@@ -420,7 +420,7 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
                         edit.putString("DEMO_USER_ID", user.getResult().getId());
                         edit.putString("DEMO_USER_NAME", user.getResult().getUsername());
                         edit.putString("DEMO_USER_PORTRAIT", user.getResult().getPortrait());
-                        edit.commit();
+                        edit.apply();
                         Log.e(TAG, "-------login success------");
 
                         httpLoginSuccess(user, true);
@@ -446,7 +446,7 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
                     httpGetTokenSuccess(user.getResult().getToken());
                     SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
                     edit.putString("DEMO_TOKEN", user.getResult().getToken());
-                    edit.commit();
+                    edit.apply();
                     Log.e(TAG, "------getTokenHttpRequest -success--" + user.getResult().getToken());
                 } else if (user.getCode() == 110) {
                     WinToast.toast(LoginActivity.this, user.getMessage());

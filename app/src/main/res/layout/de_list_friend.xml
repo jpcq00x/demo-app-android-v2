@@ -23,7 +23,6 @@
                 android:id="@+id/send_message_finish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:src="@drawable/de_title_back" />
 
 
@@ -32,17 +31,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/px_to_dip_26"
-                android:layout_toRightOf="@+id/send_message_finish"
+                android:layout_marginLeft="13dp"
                 android:src="@drawable/de_bar_logo" />
 
             <TextView
                 android:id="@+id/txt1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/img1"
                 android:text="发起聊天"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
@@ -83,12 +79,12 @@
 
     <io.rong.app.ui.DeSwitchGroup
         android:id="@+id/de_ui_friend_message"
-        android:layout_width="@dimen/px_to_dip_50"
+        android:layout_width="25dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/liner1"
-        android:layout_marginTop="@dimen/px_to_dip_16"
-        android:paddingTop="@dimen/px_to_dip_20"
+        android:layout_marginTop="8dp"
+        android:paddingTop="10dp"
         app:orientation1="vertical"
         app:pinned_item1="@layout/de_item_pinned"
         app:pinned_item_array1="@array/de_search_letters" />

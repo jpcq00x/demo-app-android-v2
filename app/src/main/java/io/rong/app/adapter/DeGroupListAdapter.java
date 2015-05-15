@@ -71,7 +71,7 @@ public class DeGroupListAdapter extends BaseAdapter  {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null || convertView.getTag() == null) {
-            convertView = mLayoutInflater.inflate(R.layout.de_item_group, null);
+            convertView = mLayoutInflater.inflate(R.layout.de_item_group, parent,false);
             viewHolder = new ViewHolder();
             viewHolder.mGroupName = (TextView) convertView.findViewById(R.id.group_adaper_name);
             viewHolder.mGroupCurrentNum = (TextView) convertView.findViewById(R.id.group_current_num);

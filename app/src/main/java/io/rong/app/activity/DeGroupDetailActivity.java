@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
@@ -77,9 +78,9 @@ public class DeGroupDetailActivity extends BaseApiActivity implements View.OnCli
             targetIds = intent.getData().getQueryParameter("targetIds");
 
             if (targetId != null) {
-                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
+                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
             } else if (targetIds != null)
-                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getQueryParameter("type").toUpperCase());
+                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getQueryParameter("type").toUpperCase(Locale.getDefault()));
 
         }
         mGroupImg = (AsyncImageView) findViewById(R.id.group_portrait);

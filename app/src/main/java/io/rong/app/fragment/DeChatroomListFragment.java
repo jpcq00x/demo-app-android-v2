@@ -133,7 +133,7 @@ public class DeChatroomListFragment extends Fragment implements AdapterView.OnIt
             if (convertView != null ) {
                 mViewHolder = (MyHolder) convertView.getTag();
             } else {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.de_item_chatroom, null);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.de_item_chatroom, parent,false);
                 mViewHolder.mIV_Icon = (AsyncImageView) convertView.findViewById(R.id.iv_chatroom_icon);
                 mViewHolder.mTV_Title = (TextView) convertView.findViewById(R.id.tv_chatroom_title);
                 mViewHolder.mTV_DescribeA = (TextView) convertView.findViewById(R.id.tv_chatroom_d_a);

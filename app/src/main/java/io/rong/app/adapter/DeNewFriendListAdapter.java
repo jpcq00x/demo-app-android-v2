@@ -60,7 +60,7 @@ public class DeNewFriendListAdapter extends android.widget.BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if(convertView == null || convertView.getTag() == null){
-            convertView = mLayoutInflater.inflate(R.layout.de_item_friend,null);
+            convertView = mLayoutInflater.inflate(R.layout.de_item_friend,parent,false);
             viewHolder = new ViewHolder();
             viewHolder.mFrienduUserName = (TextView) convertView.findViewById(R.id.item_friend_username);
 //            viewHolder.mFrienduStateNo = (ImageView) convertView.findViewById(R.id.item_friend_state_no);

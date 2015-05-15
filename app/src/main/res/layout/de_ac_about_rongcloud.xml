@@ -2,26 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/de_action_white"
     android:orientation="vertical">
-
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="85dp"
         android:layout_marginRight="85dp"
-        android:layout_marginTop="@dimen/px_to_dip_94"
+        android:layout_marginTop="47dp"
         android:src="@drawable/de_ic_logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px_to_dip_480"
-        android:layout_marginTop="@dimen/px_to_dip_10"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="5dp"
         android:text="@string/version_number"
         android:textColor="#999999"
-        android:textSize="26px"
+        android:textSize="14sp"
         android:visibility="gone" />
 
     <RelativeLayout
@@ -49,11 +48,9 @@
             android:src="@drawable/de_ic_new"
             android:visibility="gone" />
 
-
     </RelativeLayout>
 
     <include layout="@layout/de_merge_view" />
-
 
     <RelativeLayout
         android:id="@+id/rl_function_introduce"
@@ -67,7 +64,7 @@
             style="@style/DemoTextStyleBigBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_to_dip_50"
+            android:layout_marginLeft="25dp"
             android:text="@string/function_introduce" />
 
         <ImageView
@@ -75,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/px_to_dip_16"
+            android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/function_introduce"
             android:src="@drawable/de_ic_new" />
     </RelativeLayout>
@@ -94,7 +91,7 @@
             style="@style/DemoTextStyleBigBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_to_dip_50"
+            android:layout_marginLeft="25dp"
             android:text="@string/dv_document" />
 
         <ImageView
@@ -102,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/px_to_dip_16"
+            android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/dv_document"
             android:src="@drawable/de_ic_new"
             android:visibility="gone" />
@@ -123,7 +120,7 @@
             style="@style/DemoTextStyleBigBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_to_dip_50"
+            android:layout_marginLeft="25dp"
             android:text="@string/rongcloud_web" />
 
         <ImageView
@@ -131,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/px_to_dip_16"
+            android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/rongcloud_web"
             android:src="@drawable/de_ic_new"
             android:visibility="gone" />
@@ -152,7 +149,7 @@
             style="@style/DemoTextStyleBigBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_to_dip_50"
+            android:layout_marginLeft="25dp"
             android:text="@string/new_version_update" />
 
         <TextView

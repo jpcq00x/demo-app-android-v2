@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Locale;
+
 import io.rong.app.R;
 import io.rong.imlib.model.Conversation;
 
@@ -29,9 +31,9 @@ public class DemoSubActivity extends DemoActivity {
         type = intent.getData().getQueryParameter("type");
 
         if (targetId != null) {
-            mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase());
+            mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
         } else if (targetIds != null)
-            mConversationType = Conversation.ConversationType.valueOf(intent.getData().getQueryParameter("type").toUpperCase());
+            mConversationType = Conversation.ConversationType.valueOf(intent.getData().getQueryParameter("type").toUpperCase(Locale.getDefault()));
 
         Log.e("", "----demoacitivity   DemoSubActivity targetId----:" + targetId + ",targetIds----" + targetIds + ",mConversationType--" + mConversationType);
 

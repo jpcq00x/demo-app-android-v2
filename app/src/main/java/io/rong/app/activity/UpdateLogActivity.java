@@ -1,6 +1,7 @@
 package io.rong.app.activity;
 
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.webkit.WebView;
@@ -12,6 +13,7 @@ import io.rong.app.R;
 /**
  * Created by Administrator on 2015/3/19.
  */
+@SuppressLint("SetJavaScriptEnabled")
 public class UpdateLogActivity extends BaseActionBarActivity {
 
     private WebView mWebView = null;
@@ -40,7 +42,6 @@ public class UpdateLogActivity extends BaseActionBarActivity {
         mWebView.setWebViewClient(mMyWebViewClient);
     }
 
-
     @Override
     protected void initData() {
 
@@ -63,7 +64,6 @@ public class UpdateLogActivity extends BaseActionBarActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {//网页加载结束的时候
-            //super.onPageFinished(view, url);
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
                 progressDialog = null;

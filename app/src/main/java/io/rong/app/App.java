@@ -22,7 +22,7 @@ public class App extends Application {
          * context上下文
          */
         RongIM.init(this);
-        /**
+        /**d
          * 融云SDK事件监听处理
          */
         RongCloudEvent.init(this);

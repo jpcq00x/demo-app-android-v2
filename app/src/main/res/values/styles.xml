@@ -13,23 +13,23 @@
     </style>
     <!-- -->
     <style name="ActionBarSettingImg">
-        <item name="android:layout_marginLeft">@dimen/px_to_dip_30</item>
+        <item name="android:layout_marginLeft">15dp</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="ActionBarSettingTextView">
-        <item name="android:layout_marginLeft">@dimen/px_to_dip_20</item>
+        <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/group_list_black_textview</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <!-- 下划线-->
     <style name="PublicLineView">
-        <item name="android:layout_height">@dimen/px_to_dip_2</item>
+        <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:background">@color/group_list_gray</item>
     </style>
@@ -37,7 +37,7 @@
     <!--主页面ui下划线-->
     <style name="DemoMainPublic">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/px_to_dip_8</item>
+        <item name="android:layout_height">4dp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:background">@color/de_title_bg</item>
     </style>

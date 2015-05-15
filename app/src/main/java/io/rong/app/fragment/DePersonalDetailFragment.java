@@ -34,7 +34,7 @@ public class DePersonalDetailFragment extends Fragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.de_fr_personal_intro, null);
+        View view = inflater.inflate(R.layout.de_fr_personal_intro, container,false);
         mPersonalImg = (AsyncImageView) view.findViewById(R.id.personal_portrait);
         mPersonalName = (TextView) view.findViewById(R.id.personal_name);
         mPersonalId = (TextView) view.findViewById(R.id.personal_id);

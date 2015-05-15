@@ -74,7 +74,7 @@ public class DeFriendListAdapter extends DePinnedHeaderAdapter<Friend> implement
 
     @Override
     protected View newView(Context context, int partition, List<Friend> data, int position, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_friendlist,null);
+        View view = mInflater.inflate(R.layout.de_item_friendlist,parent,false);
         ViewHolder holder = new ViewHolder();
         newSetTag(view, holder, position, data);
         view.setTag(holder);
@@ -103,7 +103,7 @@ public class DeFriendListAdapter extends DePinnedHeaderAdapter<Friend> implement
 
     @Override
     protected View newHeaderView(Context context, int partition, List<Friend> data, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_friend_index, null);
+        View view = mInflater.inflate(R.layout.de_item_friend_index, parent,false);
         view.setTag(view.findViewById(R.id.index));
         return view;
     }

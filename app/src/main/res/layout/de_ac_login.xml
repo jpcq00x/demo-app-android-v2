@@ -39,7 +39,6 @@
             android:id="@+id/de_login_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="80dip"
             android:layout_marginRight="85dip"
             android:layout_marginTop="91dip"
@@ -109,7 +108,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:hint="@string/app_login_password"
-                    android:password="true"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textColor="@color/main_regist"
                     android:textColorHint="@color/main_regist" />

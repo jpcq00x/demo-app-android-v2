@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/de_action_white"
     android:layout_height="match_parent">
 
 
@@ -23,10 +23,10 @@
         <CheckBox
             android:id="@+id/add_validation_check"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/px_to_dip_36"
-            android:layout_marginTop="@dimen/px_to_dip_26"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="13dp"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/px_to_dip_24"
+            android:layout_marginBottom="12dp"
             android:layout_width="90dp"
             android:checked="true"
             android:layout_height="wrap_content"

@@ -81,7 +81,7 @@ public class UpdateNameActivity extends BaseApiActivity {
                     this.setResult(DeConstants.FIX_USERNAME_REQUESTCODE, intent);
                     SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
                     edit.putString("DEMO_USER_NAME", mNewName.getText().toString());
-                    edit.commit();
+                    edit.apply();
 //                    refreshUserInfo(new UserInfo(DemoContext.getInstance().getSharedPreferences().getString("DEMO_USER_ID", null), mNewName.getText().toString(), null));
                     finish();
                 }

@@ -118,7 +118,7 @@ public class NetUtils {
         }
         SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
         edit.putString("DEMO_COOKIE", sb.toString());
-        edit.commit();
+        edit.apply();
     }
 
 }

@@ -5,6 +5,7 @@ import android.widget.Filter;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,7 @@ public abstract class PinyinFilterList<T extends IFilterModel> extends Filter {
         if (mOriginalDatas != null && mOriginalDatas.size() > 0) {
             for (int i = 0; i < mOriginalDatas.size(); i++) {
                 T t = mOriginalDatas.get(i);
-                keysBuilder.append(String.format(INDEX_FORMATTER, i, t.getFilterKey().toLowerCase()));
+                keysBuilder.append(String.format(INDEX_FORMATTER, i, t.getFilterKey().toLowerCase(Locale.getDefault())));
             }
         }
         mKeyIndex = keysBuilder.toString();
@@ -58,7 +59,7 @@ public abstract class PinyinFilterList<T extends IFilterModel> extends Filter {
     @Override
     protected FilterResults performFiltering(CharSequence c) {
         FilterResults results = new FilterResults();
-        String constraint = c.toString().trim().toLowerCase();
+        String constraint = c.toString().trim().toLowerCase(Locale.getDefault());
 
         if (TextUtils.isEmpty(constraint)) {
             results.values = mOriginalDatas;

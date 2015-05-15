@@ -42,7 +42,7 @@ public class DeFriendListFragment extends Fragment implements DeSwitchGroup.Item
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.de_list_friend, null);
+        View view = inflater.inflate(R.layout.de_list_friend, container,false);
 
         mListView = (DePinnedHeaderListView) view.findViewById(R.id.de_ui_friend_list);
         mSwitchGroup = (DeSwitchGroup) view.findViewById(R.id.de_ui_friend_message);

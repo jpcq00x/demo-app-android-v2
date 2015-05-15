@@ -16,7 +16,7 @@ public class DeSearchbarFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.searchbar, null);
+        View view = inflater.inflate(R.layout.searchbar, container,false);
 
         return view;
     }
