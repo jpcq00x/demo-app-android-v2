@@ -40,7 +40,6 @@ public class App extends Application {
                 e.printStackTrace();
             }
         }
-
         //友盟错误统计
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
