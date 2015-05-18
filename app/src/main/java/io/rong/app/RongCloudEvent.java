@@ -3,6 +3,7 @@ package io.rong.app;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -269,6 +270,23 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         return false;
     }
 
+
+
+    @Override
+    public boolean onMessageLongClick(Context context, View view, Message message) {
+        return false;
+    }
+
+    @Override
+    public boolean onConversationLongClick(Context context, View view, UiConversation uiConversation) {
+        return false;
+    }
+
+    @Override
+    public boolean onConversationItemClick(Context context, View view, UiConversation uiConversation) {
+        return false;
+    }
+
     /**
      * 会话界面操作的监听器：ConversationBehaviorListener 的回调方法，当点击消息时执行。
      *
@@ -277,7 +295,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      * @return 返回True不执行后续SDK操作，返回False继续执行SDK操作。
      */
     @Override
-    public boolean onMessageClick(Context context, Message message) {
+    public boolean onMessageClick(Context context, View view, Message message) {
         Log.d(TAG, "onMessageClick");
 
         /**
@@ -307,20 +325,6 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 
 
 
-    @Override
-    public boolean onMessageLongClick(Context context, Message message){
-        return false;
-    }
-
-    @Override
-    public boolean onConversationLongClick(Context context,UiConversation conversation){
-        return false;
-    }
-
-    @Override
-    public boolean onConversationItemClick(Context context, UiConversation uiConversation) {
-        return false;
-    }
 
     /**
      * 连接状态监听器，以获取连接相关状态:ConnectionStatusListener 的回调方法，网络状态变化时执行。

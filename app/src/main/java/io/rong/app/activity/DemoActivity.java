@@ -328,7 +328,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                     return false;
                 }
                 if (mConversationType == Conversation.ConversationType.PUBLICSERVICE || mConversationType == Conversation.ConversationType.APPSERVICE) {
-                    RongIM.getInstance().startPublicAccountInfo(this, mConversationType, targetId);
+                    RongIM.getInstance().startPublicServiceInfo(this, mConversationType, targetId);
                 } else {
                     //通过targetId 和 会话类型 打开指定的设置页面
                     if (!TextUtils.isEmpty(targetId)) {
