@@ -12,23 +12,39 @@
         android:orientation="vertical">
 
         <fragment
+            android:id="@+id/de_fr_add_friend"
             android:name="io.rong.imkit.fragment.ConversationAddMemberFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
+            android:id="@+id/de_fr_to_top"
             android:name="io.rong.imkit.fragment.SetConversationToTopFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
+            android:id="@+id/de_fr_set_conver"
             android:name="io.rong.imkit.fragment.SetConversationNotificationFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
+            android:id="@+id/de_fr_clear"
             android:name="io.rong.imkit.fragment.ClearConversationMsgFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/de_fr_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/de_red_selector"
+            android:text="@string/group_quit"
+            android:textColor="@color/rc_text_color_secondary_inverse"/>
     </LinearLayout>
 </ScrollView>

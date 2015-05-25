@@ -49,8 +49,8 @@
     <string name="register_declaration">"仅供演示融云SDK功能使用"</string>
 
     <!--设置-->
-    <string name="new_message_notice">接收新消息通知</string>
-    <string name="new_message_show">新消息展示</string>
+    <string name="new_message_notice">消息免打扰</string>
+    <string name="new_message_show">新消息提醒</string>
     <string name="new_message_voice">声音</string>
     <string name="new_message_vibration">震动</string>
     <string name="new_message_prompt_voice">新消息提示音</string>
@@ -74,6 +74,8 @@
     <string name="de_set_clear_message">清空聊天记录</string>
     <string name="de_notification_start">开始时间</string>
     <string name="de_notification_end">结束时间</string>
+    <string name="de_fr_delete">删除并退出</string>
+
 
 
     <string name="commoditydescription">现货文化生活杂志 homeland家园2014年10月第106期</string>

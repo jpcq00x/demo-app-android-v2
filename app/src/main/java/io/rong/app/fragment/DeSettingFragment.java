@@ -10,28 +10,33 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.Locale;
 
 import io.rong.app.R;
 import io.rong.app.activity.DeFriendListActivity;
+import io.rong.app.activity.MainActivity;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.DispatchResultFragment;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 /**
  * Created by Bob on 2015/3/27.
  */
-public class DeSettingFragment extends DispatchResultFragment  {
+public class DeSettingFragment extends DispatchResultFragment implements View.OnClickListener {
     private static final String TAG = DeSettingFragment.class.getSimpleName();
     private String targetId;
     private String targetIds;
     private Conversation.ConversationType mConversationType;
+    private Button mDeleteBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.de_ac_friend_setting, container,false);
+        mDeleteBtn= (Button) view.findViewById(R.id.de_fr_delete);
         init();
         return view;
     }
@@ -45,11 +50,48 @@ public class DeSettingFragment extends DispatchResultFragment  {
 
             if (targetId != null) {
                 mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
-            } else if (targetIds != null)
-                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
-//                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getQueryParameter("type").toUpperCase());
-            Log.e(TAG, "----  targetId----:" +targetId+ ",targetIds----" + targetIds + ",mConversationType--" + mConversationType );
+                if(mConversationType == Conversation.ConversationType.DISCUSSION){
+                    mDeleteBtn.setVisibility(View.VISIBLE);
+                    mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(RongIM.getInstance()!=null){
+                                RongIM.getInstance().getRongClient().quitDiscussion(targetId, new RongIMClient.OperationCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        RongIM.getInstance().getRongClient().removeConversation(Conversation.ConversationType.DISCUSSION, targetId, new RongIMClient.ResultCallback<Boolean>() {
+                                            @Override
+                                            public void onSuccess(Boolean aBoolean) {
 
+                                                startActivity(new Intent(getActivity(), MainActivity.class));
+                                                getActivity().finish();
+                                            }
+
+                                            @Override
+                                            public void onError(RongIMClient.ErrorCode errorCode) {
+
+                                            }
+                                        });
+
+
+                                    }
+
+                                    @Override
+                                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }else{
+                    mDeleteBtn.setVisibility(View.GONE);
+                }
+            } else if (targetIds != null) {
+                mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
+                Log.e(TAG, "----  targetId----:" + targetId + ",targetIds----" + targetIds + ",mConversationType--" + mConversationType);
+
+            }
             RongContext.getInstance().setOnMemberSelectListener(new RongIM.OnMemberSelectListener() {
                 @Override
                 public void startMemberSelect(Context context, Conversation.ConversationType conversationType, String targetId) {
@@ -74,5 +116,26 @@ public class DeSettingFragment extends DispatchResultFragment  {
     @Override
     public boolean handleMessage(Message msg) {
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.de_fr_delete:
+//                if(RongIM.getInstance()!=null){
+//                    RongIM.getInstance().getRongClient().quitDiscussion(id, new RongIMClient.OperationCallback() {
+//                        @Override
+//                        public void onSuccess() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(RongIMClient.ErrorCode errorCode) {
+//
+//                        }
+//                    });
+//                }
+                break;
+        }
     }
 }

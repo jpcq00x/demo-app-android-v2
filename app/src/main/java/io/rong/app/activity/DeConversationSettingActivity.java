@@ -1,6 +1,5 @@
 package io.rong.app.activity;
 
-import android.content.Intent;
 import android.view.MenuItem;
 
 import io.rong.app.R;
@@ -11,7 +10,6 @@ import me.add1.network.AbstractHttpRequest;
  * Created by Bob on 2015/3/27.
  */
 public class DeConversationSettingActivity extends BaseApiActivity {
-    private static final String TAG = DeConversationSettingActivity.class.getSimpleName();
 
     @Override
     public void onCallApiSuccess(AbstractHttpRequest request, Object obj) {
@@ -33,14 +31,7 @@ public class DeConversationSettingActivity extends BaseApiActivity {
         getSupportActionBar().setTitle(R.string.de_actionbar_set_conversation);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.de_actionbar_back);
-        Intent intent = getIntent();
-        if (intent.getData() != null) {
-            final String targetId = intent.getData().getQueryParameter("targetId");
-            final String targetIds = intent.getData().getQueryParameter("targetIds");
-            final String delimiter = intent.getData().getQueryParameter("delimiter");
-//        intent.getData().getQueryParameter("title")
 
-        }
     }
 
     @Override

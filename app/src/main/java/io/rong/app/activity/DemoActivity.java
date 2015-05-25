@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +35,7 @@ import io.rong.imlib.model.Discussion;
  * Created by Bob on 2015/3/27.
  * 通过intent获得发送过来的数据
  * 1，程序切到后台，点击通知栏进入程序
- * 2，收到 push 消息（pish消息可以理解为推送消息）
+ * 2，收到 push 消息（push消息可以理解为推送消息）
  */
 public class DemoActivity extends BaseActivity implements Handler.Callback {
 
@@ -74,6 +75,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
         if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong") && intent.getData().getQueryParameter("push") != null) {
             //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
             if (DemoContext.getInstance() != null && intent.getData().getQueryParameter("push").equals("true")) {
+                Log.e(TAG,"0518---test-push --"+intent.getData());
                 if (DemoContext.getInstance() != null) {
                     String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
                     reconnect(token);
@@ -83,6 +85,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
             }
         } else if (intent != null) {
             //程序切到后台，收到消息后点击进入,会执行这里
+            Log.e(TAG,"0518---test-activity--"+intent.getData());
             enterFragment(intent);
         }
     }

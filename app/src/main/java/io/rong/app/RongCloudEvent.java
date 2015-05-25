@@ -2,6 +2,7 @@ package io.rong.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
@@ -13,7 +14,7 @@ import io.rong.app.activity.PhotoActivity;
 import io.rong.app.activity.SOSOLocationActivity;
 import io.rong.app.message.DeAgreedFriendRequestMessage;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.UiConversation;
+import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
@@ -224,7 +225,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
          * demo 代码  开发者需替换成自己的代码。
          */
         return DemoContext.getInstance().getUserInfoById(userId);
-//        return new UserInfo("10000","新好友消息", Uri.parse("test"));
+
     }
 
 
@@ -278,14 +279,16 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     }
 
     @Override
-    public boolean onConversationLongClick(Context context, View view, UiConversation uiConversation) {
+    public boolean onConversationLongClick(Context context, View view, UIConversation uiConversation) {
         return false;
     }
 
     @Override
-    public boolean onConversationItemClick(Context context, View view, UiConversation uiConversation) {
+    public boolean onConversationItemClick(Context context, View view, UIConversation uiConversation) {
         return false;
     }
+
+
 
     /**
      * 会话界面操作的监听器：ConversationBehaviorListener 的回调方法，当点击消息时执行。

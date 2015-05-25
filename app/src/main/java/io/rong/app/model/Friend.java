@@ -18,14 +18,8 @@ public class Friend implements Serializable, IFilterModel {
     private String portrait;
     private char searchKey;
     private Resource portraitResource;
-
     private boolean isSelected = false;
-
-    private boolean isCall = false;
-
     private boolean isAdd = false;
-    private boolean isSub = false;
-    private boolean isDel = false;
 
     public Friend(){
 
@@ -125,13 +119,7 @@ public class Friend implements Serializable, IFilterModel {
         return getNickname() + getNicknamePinyin();
     }
 
-    public boolean isCall() {
-        return isCall;
-    }
 
-    public void setCall(boolean isCall) {
-        this.isCall = isCall;
-    }
 
     public boolean isAdd() {
         return isAdd;
@@ -141,19 +129,5 @@ public class Friend implements Serializable, IFilterModel {
         this.isAdd = isAdd;
     }
 
-    public boolean isSub() {
-        return isSub;
-    }
 
-    public void setSub(boolean isSub) {
-        this.isSub = isSub;
-    }
-
-    public boolean isDel() {
-        return isDel;
-    }
-
-    public void setDel(boolean isDel) {
-        this.isDel = isDel;
-    }
 }

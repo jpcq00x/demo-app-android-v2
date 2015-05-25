@@ -443,8 +443,31 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                 startActivity(new Intent(MainActivity.this, AboutRongCloudActivity.class));
                 break;
             case R.id.set_item5://退出
-                if (RongIM.getInstance() != null) RongIM.getInstance().disconnect(false);
-                Process.killProcess(Process.myPid());
+
+                final AlertDialog.Builder alterDialog = new AlertDialog.Builder(this);
+                alterDialog.setMessage("确定退出应用？");
+                alterDialog.setCancelable(true);
+
+                alterDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        if (RongIM.getInstance() != null) {
+                            RongIM.getInstance().disconnect(false);
+                        }
+                        killThisPackageIfRunning(MainActivity.this, "io.rong.imlib.ipc");
+                        android.os.Process.killProcess(Process.myPid());
+                    }
+                });
+                alterDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alterDialog.show();
+
                 break;
         }
         return super.onOptionsItemSelected(item);

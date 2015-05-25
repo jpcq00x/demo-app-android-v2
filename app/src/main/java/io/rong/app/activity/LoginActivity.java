@@ -370,7 +370,6 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
                     edit.putString("DEMO_USERID", userId);
                     edit.apply();
                     RongIM.getInstance().setUserInfoAttachedState(true);
-                    RongIM.getInstance().setCurrentUserInfo(new UserInfo(userId, null, null));
 
                     RongCloudEvent.getInstance().setOtherListener();
                 }
@@ -492,17 +491,17 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
             if (obj instanceof Friends) {
                 final Friends friends = (Friends) obj;
                 if (friends.getCode() == 200) {
-                    ArrayList<UserInfo> friendreslut = new ArrayList<UserInfo>();
+                    ArrayList<UserInfo> friendResults = new ArrayList<UserInfo>();
 
                     for (int i = 0; i < friends.getResult().size(); i++) {
                         UserInfo info = new UserInfo(String.valueOf(friends.getResult().get(i).getId()), friends.getResult().get(i).getUsername(), friends.getResult().get(i).getPortrait() == null ? null : Uri.parse(friends.getResult().get(i).getPortrait()));
-                        friendreslut.add(info);
+                        friendResults.add(info);
                     }
-                    friendreslut.add(new UserInfo("10000", "新好友消息", Uri.parse("test")));
-                    friendreslut.add(new UserInfo("kefu114", "客服", Uri.parse(getResources().getResourceName(R.drawable.de_service))));
+                    friendResults.add(new UserInfo("10000", "新好友消息", Uri.parse("test")));
+                    friendResults.add(new UserInfo("kefu114", "客服11", Uri.parse("http://jdd.kefu.rongcloud.cn/image/service_80x80.png")));
                     if (DemoContext.getInstance() != null)
                         //将数据提供给用户信息提供者
-                        DemoContext.getInstance().setUserInfos(friendreslut);
+                        DemoContext.getInstance().setUserInfos(friendResults);
                     mHandler.obtainMessage(HANDLER_LOGIN_SUCCESS).sendToTarget();
                 }
             }

@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
+import io.rong.app.database.DeDateContext;
 import io.rong.app.message.DeAgreedFriendRequestMessage;
 import io.rong.app.message.DeContactNotificationMessageProvider;
 import io.rong.imkit.RongIM;
@@ -28,6 +29,8 @@ public class App extends Application {
         RongCloudEvent.init(this);
 
         DemoContext.init(this);
+
+//        DeDateContext.init(this);
 
         //注册消息类型的时候判断当前的进程是否在主进程
         if ("io.rong.app".equals(getCurProcessName(getApplicationContext()))) {
