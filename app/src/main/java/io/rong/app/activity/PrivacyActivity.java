@@ -1,6 +1,7 @@
 package io.rong.app.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
@@ -23,11 +24,13 @@ public class PrivacyActivity extends BaseActionBarActivity implements View.OnCli
     private RelativeLayout mTheBlackList;
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_privacy;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_privacy);
+        initView();
     }
 
-    @Override
+
     protected void initView() {
 
         getSupportActionBar().setTitle(R.string.set_privacy);
@@ -40,10 +43,6 @@ public class PrivacyActivity extends BaseActionBarActivity implements View.OnCli
 
     }
 
-    @Override
-    protected void initData() {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -52,7 +51,7 @@ public class PrivacyActivity extends BaseActionBarActivity implements View.OnCli
                 mAddValidation.isChecked();
                 break;
             case R.id.rl_the_blacklist://黑名单
-                startActivity(new Intent(this, DeBlackListActivity.class));
+                startActivity(new Intent(this, BlackListActivity.class));
                 break;
         }
 

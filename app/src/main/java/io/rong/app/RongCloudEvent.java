@@ -2,7 +2,8 @@ package io.rong.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.View;
 
@@ -10,9 +11,12 @@ import java.util.ArrayList;
 
 import io.rong.app.activity.DePersonalDetailActivity;
 import io.rong.app.activity.MainActivity;
+import io.rong.app.activity.PersonalDetailActivity;
 import io.rong.app.activity.PhotoActivity;
 import io.rong.app.activity.SOSOLocationActivity;
 import io.rong.app.message.DeAgreedFriendRequestMessage;
+import io.rong.imkit.PushNotificationManager;
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
@@ -28,6 +32,7 @@ import io.rong.message.LocationMessage;
 import io.rong.message.RichContentMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
+import io.rong.notification.PushNotificationMessage;
 
 /**
  * Created by zhjchen on 1/29/15.
@@ -46,8 +51,12 @@ import io.rong.message.VoiceMessage;
  * 6、会话界面操作的监听器：ConversationBehaviorListener。
  * 7、连接状态监听器，以获取连接相关状态：ConnectionStatusListener。
  * 8、地理位置提供者：LocationProvider。
+ * 9、自定义 push 通知： OnReceivePushMessageListener。
+ * 10、会话列表界面操作的监听器：ConversationListBehaviorListener。
  */
-public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListener, RongIM.OnSendMessageListener, RongIM.GetUserInfoProvider, RongIM.GetGroupInfoProvider, RongIM.ConversationBehaviorListener, RongIMClient.ConnectionStatusListener, RongIM.LocationProvider {
+public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListener, RongIM.OnSendMessageListener,
+        RongIM.UserInfoProvider, RongIM.GroupInfoProvider, RongIM.ConversationBehaviorListener,
+        RongIMClient.ConnectionStatusListener, RongIM.LocationProvider, RongIMClient.OnReceivePushMessageListener, RongIM.ConversationListBehaviorListener {
 
     private static final String TAG = RongCloudEvent.class.getSimpleName();
 
@@ -87,10 +96,11 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      * RongIM.init(this) 后直接可注册的Listener。
      */
     private void initDefaultListener() {
-        RongIM.setGetUserInfoProvider(this, true);//设置用户信息提供者。
-        RongIM.setGetGroupInfoProvider(this);//设置群组信息提供者。
+        RongIM.setUserInfoProvider(this, true);//设置用户信息提供者。
+        RongIM.setGroupInfoProvider(this);//设置群组信息提供者。
         RongIM.setConversationBehaviorListener(this);//设置会话界面操作的监听器。
         RongIM.setLocationProvider(this);//设置地理位置提供者,不用位置的同学可以注掉此行代码
+//        RongIM.setPushMessageBehaviorListener(this);//自定义 push 通知。
     }
 
     /*
@@ -99,11 +109,73 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      * 在RongIM-connect-onSuccess后调用。
      */
     public void setOtherListener() {
-        RongIM.getInstance().getRongClient().setOnReceiveMessageListener(this);//设置消息接收监听器。
+        RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(this);//设置消息接收监听器。
         RongIM.getInstance().setSendMessageListener(this);//设置发出消息接收监听器.
-        RongIM.getInstance().getRongClient().setConnectionStatusListener(this);//设置连接状态监听器。
+        RongIM.getInstance().getRongIMClient().setConnectionStatusListener(this);//设置连接状态监听器。
     }
 
+    /**
+     * 自定义 push 通知。
+     *
+     * @param msg
+     * @return
+     */
+    @Override
+    public boolean onReceivePushMessage(PushNotificationMessage msg) {
+        Log.d(TAG, "onReceived-onPushMessageArrive:" + msg.getContent());
+
+        PushNotificationManager.getInstance().onReceivePush(msg);
+
+//        Intent intent = new Intent();
+//        Uri uri;
+//
+//        intent.setAction(Intent.ACTION_VIEW);
+//
+//        Conversation.ConversationType conversationType = msg.getConversationType();
+//
+//        uri = Uri.parse("rong://" + RongContext.getInstance().getPackageName()).buildUpon().appendPath("conversationlist").build();
+//        intent.setData(uri);
+//        Log.d(TAG, "onPushMessageArrive-url:" + uri.toString());
+//
+//        Notification notification=null;
+//
+//        PendingIntent pendingIntent = PendingIntent.getActivity(RongContext.getInstance(), 0,
+//                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        if (android.os.Build.VERSION.SDK_INT < 11) {
+//            notification = new Notification(RongContext.getInstance().getApplicationInfo().icon, "自定义 notification", System.currentTimeMillis());
+//
+//            notification.setLatestEventInfo(RongContext.getInstance(), "自定义 title", "这是 Content:"+msg.getObjectName(), pendingIntent);
+//            notification.flags = Notification.FLAG_AUTO_CANCEL;
+//            notification.defaults = Notification.DEFAULT_SOUND;
+//        } else {
+//
+//             notification = new Notification.Builder(RongContext.getInstance())
+//                    .setLargeIcon(getAppIcon())
+//                    .setSmallIcon(R.drawable.ic_launcher)
+//                    .setTicker("自定义 notification")
+//                    .setContentTitle("自定义 title")
+//                    .setContentText("这是 Content:"+msg.getObjectName())
+//                    .setContentIntent(pendingIntent)
+//                    .setAutoCancel(true)
+//                    .setDefaults(Notification.DEFAULT_ALL).build();
+//
+//        }
+//
+//        NotificationManager nm = (NotificationManager) RongContext.getInstance().getSystemService(RongContext.getInstance().NOTIFICATION_SERVICE);
+//
+//        nm.notify(0, notification);
+
+        return true;
+    }
+
+    private Bitmap getAppIcon() {
+        BitmapDrawable bitmapDrawable;
+        Bitmap appIcon;
+        bitmapDrawable = (BitmapDrawable) RongContext.getInstance().getApplicationInfo().loadIcon(RongContext.getInstance().getPackageManager());
+        appIcon = bitmapDrawable.getBitmap();
+        return appIcon;
+    }
 
     /**
      * 获取RongCloud 实例。
@@ -143,12 +215,18 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         } else if (messageContent instanceof DeAgreedFriendRequestMessage) {//好友添加成功消息
             DeAgreedFriendRequestMessage deAgreedFriendRequestMessage = (DeAgreedFriendRequestMessage) messageContent;
             Log.d(TAG, "onReceived-deAgreedFriendRequestMessage:" + deAgreedFriendRequestMessage.getMessage());
-            reciverAgreeSuccess(deAgreedFriendRequestMessage);
+            receiveAgreeSuccess(deAgreedFriendRequestMessage);
         } else if (messageContent instanceof ContactNotificationMessage) {//好友添加消息
             ContactNotificationMessage contactContentMessage = (ContactNotificationMessage) messageContent;
             Log.d(TAG, "onReceived-ContactNotificationMessage:getExtra;" + contactContentMessage.getExtra());
             Log.d(TAG, "onReceived-ContactNotificationMessage:+getmessage:" + contactContentMessage.getMessage().toString());
-            //收到从服务器端发过来的好友消息，发送广播提示更新ui
+//            RongIM.getInstance().getRongIMClient().deleteMessages(new int[]{message.getMessageId()});
+//            if(DemoContext.getInstance()!=null) {
+//                RongIM.getInstance().getRongIMClient().removeConversation(Conversation.ConversationType.SYSTEM, "10000");
+//                String targetname = DemoContext.getInstance().getUserNameByUserId(contactContentMessage.getSourceUserId());
+//                RongIM.getInstance().getRongIMClient().insertMessage(Conversation.ConversationType.SYSTEM, "10000", contactContentMessage.getSourceUserId(), contactContentMessage, null);
+//
+//            }
             Intent in = new Intent();
             in.setAction(MainActivity.ACTION_DMEO_RECEIVE_MESSAGE);
             in.putExtra("rongCloud", contactContentMessage);
@@ -163,20 +241,15 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     }
 
     /**
-     * 对方同意添加你为好友后，会向你发送添加成功的消息，这条消息是自定义消息，当前设置的这条消息不会在会话列表展示
-     *
      * @param deAgreedFriendRequestMessage
      */
-    private void reciverAgreeSuccess(DeAgreedFriendRequestMessage deAgreedFriendRequestMessage) {
+    private void receiveAgreeSuccess(DeAgreedFriendRequestMessage deAgreedFriendRequestMessage) {
         ArrayList<UserInfo> friendreslist = new ArrayList<UserInfo>();
         if (DemoContext.getInstance() != null) {
             friendreslist = DemoContext.getInstance().getFriends();
-            //接收到的这条消息的消息体里面有 userinfo，直接调用就可以
             friendreslist.add(deAgreedFriendRequestMessage.getUserInfo());
-            //将此userinfo 添加到好友列表
             DemoContext.getInstance().setFriends(friendreslist);
         }
-        //发送广播，提示更新 UI
         Intent in = new Intent();
         in.setAction(MainActivity.ACTION_DMEO_AGREE_REQUEST);
         in.putExtra("AGREE_REQUEST", true);
@@ -225,7 +298,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
          * demo 代码  开发者需替换成自己的代码。
          */
         return DemoContext.getInstance().getUserInfoById(userId);
-
+//        return new UserInfo("10000","新好友消息", Uri.parse("test"));
     }
 
 
@@ -262,33 +335,19 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
-//        Log.d("Begavior", conversationType.getName() + ":" + user.getName());
+        Log.d("Begavior", conversationType.getName() + ":" + user.getName());
         Intent in = new Intent(context, DePersonalDetailActivity.class);
-        in.putExtra("SEARCH_USERNAME", user.getName());
+        in.putExtra("USER",user);
         in.putExtra("SEARCH_USERID", user.getUserId());
         context.startActivity(in);
 
         return false;
     }
 
-
-
     @Override
-    public boolean onMessageLongClick(Context context, View view, Message message) {
+    public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
         return false;
     }
-
-    @Override
-    public boolean onConversationLongClick(Context context, View view, UIConversation uiConversation) {
-        return false;
-    }
-
-    @Override
-    public boolean onConversationItemClick(Context context, View view, UIConversation uiConversation) {
-        return false;
-    }
-
-
 
     /**
      * 会话界面操作的监听器：ConversationBehaviorListener 的回调方法，当点击消息时执行。
@@ -317,6 +376,8 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
             Intent intent = new Intent(context, PhotoActivity.class);
 
             intent.putExtra("photo", imageMessage.getLocalUri() == null ? imageMessage.getRemoteUri() : imageMessage.getLocalUri());
+            if (imageMessage.getThumUri() != null)
+                intent.putExtra("thumbnail", imageMessage.getThumUri());
 
             context.startActivity(intent);
         }
@@ -326,8 +387,10 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         return false;
     }
 
-
-
+    @Override
+    public boolean onMessageLongClick(Context context, View view, Message message) {
+        return false;
+    }
 
     /**
      * 连接状态监听器，以获取连接相关状态:ConnectionStatusListener 的回调方法，网络状态变化时执行。
@@ -337,6 +400,8 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public void onChanged(ConnectionStatus status) {
         Log.d(TAG, "onChanged:" + status);
+        if (status.getMessage().equals(ConnectionStatus.DISCONNECTED.getMessage())) {
+        }
     }
 
 
@@ -353,5 +418,31 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
          */
         DemoContext.getInstance().setLastLocationCallback(callback);
         context.startActivity(new Intent(context, SOSOLocationActivity.class));//SOSO地图
+    }
+
+    /**
+     * 点击会话列表 item 后执行。
+     *
+     * @param context      上下文。
+     * @param view         触发点击的 View。
+     * @param conversation 会话条目。
+     * @return 返回 true 不再执行融云 SDK 逻辑，返回 false 先执行融云 SDK 逻辑再执行该方法。
+     */
+    @Override
+    public boolean onConversationClick(Context context, View view, UIConversation conversation) {
+        return false;
+    }
+
+    /**
+     * 长按会话列表 item 后执行。
+     *
+     * @param context      上下文。
+     * @param view         触发点击的 View。
+     * @param conversation 长按会话条目。
+     * @return  返回 true 不再执行融云 SDK 逻辑，返回 false 先执行融云 SDK 逻辑再执行该方法。
+     */
+    @Override
+    public boolean onConversationLongClick(Context context, View view, UIConversation conversation) {
+        return false;
     }
 }

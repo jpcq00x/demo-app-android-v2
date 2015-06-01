@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import java.io.Serializable;
 
-import io.rong.app.libs.pinyin.DePinyinHelper;
+import io.rong.app.libs.pinyin.PinyinHelper;
 import me.add1.resource.Resource;
 
 /**
@@ -38,7 +38,7 @@ public class Friend implements Serializable, IFilterModel {
             return;
         }
 
-        nicknamePinyin = DePinyinHelper.getInstance().getPinyins(nickname, "");
+        nicknamePinyin = PinyinHelper.getInstance().getPinyins(nickname, "");
 
         if (nicknamePinyin != null && nicknamePinyin.length() > 0) {
             char key = nicknamePinyin.charAt(0);

@@ -2,6 +2,7 @@ package io.rong.app.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,7 @@ import java.util.Locale;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
-import io.rong.app.fragment.DeFriendMultiChoiceFragment;
+import io.rong.app.fragment.FriendMultiChoiceFragment;
 import io.rong.app.ui.LoadingDialog;
 import io.rong.app.ui.WinToast;
 import io.rong.imkit.RongIM;
@@ -60,11 +61,14 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
     private Handler mHandler;
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_activity;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_activity);
+        initView();
+        initData();
     }
 
-    @Override
+
     protected void initView() {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,10 +80,14 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
             //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
             if (DemoContext.getInstance() != null && intent.getData().getQueryParameter("push").equals("true")) {
                 Log.e(TAG,"0518---test-push --"+intent.getData());
-                if (DemoContext.getInstance() != null) {
-                    String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
-                    reconnect(token);
-                }
+
+                Intent in = new Intent(DemoActivity.this,LoginActivity.class);
+                in.putExtra("PUSH_CONTEXT","push");
+                startActivity(in);
+//                if (DemoContext.getInstance() != null) {
+//                    String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
+//                    reconnect(token);
+//                }
             } else {
                 enterFragment(intent);
             }
@@ -104,6 +112,12 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
 
         try {
             RongIM.connect(token, new RongIMClient.ConnectCallback() {
+
+                @Override
+                public void onTokenIncorrect() {
+
+                }
+
                 @Override
                 public void onSuccess(String userId) {
                     mHandler.post(new Runnable() {
@@ -128,6 +142,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                     });
                 }
             });
+
         } catch (Exception e) {
             mHandler.post(new Runnable() {
                 @Override
@@ -160,11 +175,11 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                         //注释掉的代码为不加输入框的聊天页面（此处作为示例）
 //                        String fragmentName = MessageListFragment.class.getCanonicalName();
 //                        fragment = Fragment.instantiate(this, fragmentName);
-                        startActivity(new Intent(DemoActivity.this, DeNewFriendListActivity.class));
+                        startActivity(new Intent(DemoActivity.this, NewFriendListActivity.class));
                         finish();
-                        List<Conversation> conversations = RongIM.getInstance().getRongClient().getConversationList(Conversation.ConversationType.SYSTEM);
+                        List<Conversation> conversations = RongIM.getInstance().getRongIMClient().getConversationList(Conversation.ConversationType.SYSTEM);
                         for (int i = 0; i < conversations.size(); i++) {
-                            RongIM.getInstance().getRongClient().clearMessagesUnreadStatus(Conversation.ConversationType.SYSTEM, conversations.get(i).getSenderUserId());
+                            RongIM.getInstance().getRongIMClient().clearMessagesUnreadStatus(Conversation.ConversationType.SYSTEM, conversations.get(i).getSenderUserId());
                         }
                     } else {
                         String fragmentName = ConversationFragment.class.getCanonicalName();
@@ -180,7 +195,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                     fragment = Fragment.instantiate(this, fragmentName);
                 } else if (intent.getData().getPathSegments().get(0).equals("friend")) {
                     tag = "friend";
-                    String fragmentName = DeFriendMultiChoiceFragment.class.getCanonicalName();
+                    String fragmentName = FriendMultiChoiceFragment.class.getCanonicalName();
                     fragment = Fragment.instantiate(this, fragmentName);
                     ActionBar actionBar = getSupportActionBar();
                     actionBar.hide();//隐藏ActionBar
@@ -202,7 +217,6 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
         }
     }
 
-    @Override
     protected void initData() {
         if (mConversationType != null) {
             if (mConversationType.toString().equals("PRIVATE")) {
@@ -214,7 +228,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 }
             } else if (mConversationType.toString().equals("DISCUSSION")) {
                 if (targetId != null) {
-                    RongIM.getInstance().getRongClient().getDiscussion(targetId, new RongIMClient.GetDiscussionCallback() {
+                    RongIM.getInstance().getRongIMClient().getDiscussion(targetId, new RongIMClient.ResultCallback<Discussion>() {
                         @Override
                         public void onSuccess(Discussion discussion) {
                             getSupportActionBar().setTitle(discussion.getName());
@@ -225,6 +239,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
 
                         }
                     });
+
                 } else if (targetIds != null) {
                     setDiscussionName(targetIds);
                 } else {
@@ -236,6 +251,10 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 getSupportActionBar().setTitle("聊天室");
             } else if (mConversationType.toString().equals("CUSTOMER_SERVICE")) {
                 getSupportActionBar().setTitle("客服");
+            }else if(mConversationType.toString().equals("PUBLIC_APP_SERVICE")){
+                getSupportActionBar().setTitle("PUBLIC_APP_SERVICE");
+            }else if(mConversationType.toString().equals("PUBLIC_SERVICE")){
+                getSupportActionBar().setTitle("PUBLIC_SERVICE");
             }
 
 
@@ -330,8 +349,8 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 if (mConversationType == null) {
                     return false;
                 }
-                if (mConversationType == Conversation.ConversationType.PUBLICSERVICE || mConversationType == Conversation.ConversationType.APPSERVICE) {
-                    RongIM.getInstance().startPublicServiceInfo(this, mConversationType, targetId);
+                if (mConversationType == Conversation.ConversationType.PUBLIC_SERVICE || mConversationType == Conversation.ConversationType.APP_PUBLIC_SERVICE) {
+                    RongIM.getInstance().startPublicServiceProfile(this, mConversationType, targetId);
                 } else {
                     //通过targetId 和 会话类型 打开指定的设置页面
                     if (!TextUtils.isEmpty(targetId)) {

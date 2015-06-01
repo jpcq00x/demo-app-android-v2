@@ -21,6 +21,7 @@ public class DemoSubActivity extends DemoActivity {
     private String targetIds;
     private String type;
     private Conversation.ConversationType mConversationType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +36,16 @@ public class DemoSubActivity extends DemoActivity {
         } else if (targetIds != null)
             mConversationType = Conversation.ConversationType.valueOf(intent.getData().getQueryParameter("type").toUpperCase(Locale.getDefault()));
 
-        Log.e("", "----demoacitivity   DemoSubActivity targetId----:" + targetId + ",targetIds----" + targetIds + ",mConversationType--" + mConversationType);
 
-        if(type.equals("group")) {
+        if (type.equals("group")) {
             getSupportActionBar().setTitle(R.string.de_actionbar_sub_group);
-        }else if(type.equals("private")){
+        } else if (type.equals("private")) {
             getSupportActionBar().setTitle(R.string.de_actionbar_sub_private);
-        }else if(type.equals("discussion")){
+        } else if (type.equals("discussion")) {
             getSupportActionBar().setTitle(R.string.de_actionbar_sub_discussion);
-        }else if(type.equals("system")){
+        } else if (type.equals("system")) {
             getSupportActionBar().setTitle(R.string.de_actionbar_sub_system);
-        }else {
+        } else {
             getSupportActionBar().setTitle(R.string.de_actionbar_sub_defult);
         }
 

@@ -1,5 +1,7 @@
 package io.rong.app.activity;
 
+import android.os.Bundle;
+
 import io.rong.app.R;
 
 /**
@@ -11,17 +13,10 @@ public class PublicServiceInfoActivity extends BaseActivity{
 
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_pub_account_info;
-    }
-
-    @Override
-    protected void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_pub_account_info);
 
     }
 
-    @Override
-    protected void initData() {
-
-    }
 }

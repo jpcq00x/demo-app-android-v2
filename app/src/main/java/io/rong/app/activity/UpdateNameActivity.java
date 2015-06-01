@@ -2,6 +2,7 @@ package io.rong.app.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +13,7 @@ import io.rong.app.DemoContext;
 import io.rong.app.R;
 import io.rong.app.model.Status;
 import io.rong.app.ui.WinToast;
-import io.rong.app.utils.DeConstants;
+import io.rong.app.utils.Constants;
 import io.rong.imkit.RongContext;
 import io.rong.imlib.model.UserInfo;
 import me.add1.exception.BaseException;
@@ -30,11 +31,13 @@ public class UpdateNameActivity extends BaseApiActivity {
     private AbstractHttpRequest<Status> httpRequest;
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_update_name;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_update_name);
+        initView();
     }
 
-    @Override
+
     protected void initView() {
         getSupportActionBar().setTitle(R.string.my_username);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,12 +51,7 @@ public class UpdateNameActivity extends BaseApiActivity {
         }
     }
 
-    @Override
-    protected void initData() {
 
-    }
-
-    //
     private void refreshUserInfo(UserInfo userInfo) {
 
         if (userInfo == null) {
@@ -78,7 +76,7 @@ public class UpdateNameActivity extends BaseApiActivity {
                     WinToast.toast(this, R.string.update_profile_success);
                     Intent intent = new Intent();
                     intent.putExtra("UPDATA_RESULT", mNewName.getText().toString());
-                    this.setResult(DeConstants.FIX_USERNAME_REQUESTCODE, intent);
+                    this.setResult(Constants.FIX_USERNAME_REQUESTCODE, intent);
                     SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
                     edit.putString("DEMO_USER_NAME", mNewName.getText().toString());
                     edit.apply();

@@ -52,6 +52,16 @@ public class ApiResult implements Serializable {
      */
     private String creat_datetime;
 
+    private int env;
+
+    public int getEnv() {
+        return env;
+    }
+
+    public void setEnv(int env) {
+        this.env = env;
+    }
+
     public ApiResult() {
 
     }

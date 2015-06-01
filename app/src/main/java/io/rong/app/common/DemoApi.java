@@ -39,6 +39,7 @@ public class DemoApi extends BaseApi {
 
     private final static String DEMO_LOGIN_EMAIL = "email_login";
     private final static String DEMO_FRIENDS = "friends";
+//    private final static String DEMO_FRIENDS = "get_friend";
     private final static String DEMO_REQ = "reg";
     private final static String DEMO_UPDATE_PROFILE = "update_profile";
 
@@ -67,13 +68,17 @@ public class DemoApi extends BaseApi {
      * @param email
      * @param password
      * @param callback
+     * 1 关羽  生产
+     * 2，张飞 测试
      * @return
      */
     public AbstractHttpRequest<User> login(String email, String password, ApiCallback<User> callback) {
 
+
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("email", email));
         nameValuePairs.add(new BasicNameValuePair("password", password));
+//        nameValuePairs.add(new BasicNameValuePair("env", "2"));
 
         ApiReqeust<User> apiReqeust = new DefaultApiReqeust<User>(ApiReqeust.POST_METHOD, URI.create(HOST + DEMO_LOGIN_EMAIL), nameValuePairs, callback);
         AbstractHttpRequest<User> httpRequest = apiReqeust.obtainRequest(new GsonParser<User>(User.class), null, null);

@@ -4,6 +4,7 @@ package io.rong.app.activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -18,13 +19,13 @@ public class UpdateLogActivity extends BaseActionBarActivity {
 
     private WebView mWebView = null;
 
-
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_update_log;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_update_log);
+        initView();
     }
 
-    @Override
     protected void initView() {
         getSupportActionBar().setTitle(R.string.update_log);
         mWebView = (WebView) findViewById(R.id.update_log_webview);
@@ -40,11 +41,6 @@ public class UpdateLogActivity extends BaseActionBarActivity {
         mMyWebViewClient.shouldOverrideUrlLoading(mWebView, "http://rongcloud.cn/downloads/history/Android");
         mMyWebViewClient.onPageFinished(mWebView, "http://rongcloud.cn/downloads/history/Android");
         mWebView.setWebViewClient(mMyWebViewClient);
-    }
-
-    @Override
-    protected void initData() {
-
     }
 
     class MyWebViewClient extends WebViewClient {

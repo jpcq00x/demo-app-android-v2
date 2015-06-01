@@ -3,6 +3,7 @@ package io.rong.app.activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -13,16 +14,18 @@ import io.rong.app.R;
  * Created by Administrator on 2015/3/20.
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class DocumentActivity extends BaseActionBarActivity{
+public class DocumentActivity extends BaseActionBarActivity {
 
     private WebView mWebView = null;
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_document;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_document);
+        initView();
+
     }
 
-    @Override
     protected void initView() {
 
         getSupportActionBar().setTitle(R.string.dv_document);
@@ -42,10 +45,6 @@ public class DocumentActivity extends BaseActionBarActivity{
 
     }
 
-    @Override
-    protected void initData() {
-
-    }
 
     class MyWebViewClient extends WebViewClient {
 
@@ -64,7 +63,6 @@ public class DocumentActivity extends BaseActionBarActivity{
 
         @Override
         public void onPageFinished(WebView view, String url) {//网页加载结束的时候
-            //super.onPageFinished(view, url);
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
                 progressDialog = null;

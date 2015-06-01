@@ -1,25 +1,19 @@
 package io.rong.app.activity;
 
+import android.os.Bundle;
+
 import io.rong.app.R;
 
 /**
  * Created by weiqinxiao on 15/4/10.
  */
-public class PublicServiceSearchActivity extends BaseActivity{
-
+public class PublicServiceSearchActivity extends BaseActivity {
 
     @Override
-    protected void initData() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_pub_search);
 
     }
 
-    @Override
-    protected int setContentViewResId() {
-        return R.layout.de_pub_search;
-    }
-
-    @Override
-    protected void initView() {
-
-    }
 }

@@ -19,7 +19,7 @@ import io.rong.message.ContactNotificationMessage;
  * Created by Bob on 2015/4/17.
  */
 @ProviderTag(messageContent = ContactNotificationMessage.class, showPortrait = false, centerInHorizontal = true,showProgress = false)
-public class DeContactNotificationMessageProvider extends IContainerItemProvider.MessageProvider<ContactNotificationMessage> {
+public  class DeContactNotificationMessageProvider extends IContainerItemProvider.MessageProvider<ContactNotificationMessage> {
     @Override
     public void bindView(View v, int position, ContactNotificationMessage content, Message message) {
         ViewHolder viewHolder = (ViewHolder) v.getTag();
@@ -41,6 +41,11 @@ public class DeContactNotificationMessageProvider extends IContainerItemProvider
     @Override
     public void onItemClick(View view, int position, ContactNotificationMessage
             content, Message message) {
+    }
+
+    @Override
+    public void onItemLongClick(View view, int i, ContactNotificationMessage contactNotificationMessage, Message message) {
+
     }
 
     @Override

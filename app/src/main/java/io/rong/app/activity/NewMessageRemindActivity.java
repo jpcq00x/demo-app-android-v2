@@ -2,6 +2,7 @@ package io.rong.app.activity;
 
 import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -90,12 +91,16 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
     private Handler mHandler;
     boolean mIsSetting = false;
     public static final String TAG = NewMessageRemindActivity.class.getSimpleName();
-    @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_new_message_remind;
-    }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_new_message_remind);
+        initView();
+        initData();
+
+    }
+
     protected void initView() {
         getSupportActionBar().setTitle(R.string.new_message_show);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -117,7 +122,6 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
 
     }
 
-    @Override
     protected void initData() {
         mNewMessageNotice.setOnClickListener(this);
         mNewMessageShow.setOnClickListener(this);
@@ -133,7 +137,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                 mHandler.sendMessage(msg);
             }
         }
-        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
@@ -223,12 +227,12 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                             @Override
                             public void run() {
 
-                                RongIM.getInstance().getRongClient().removeConversationNotificationQuietHours(new RongIMClient.OperationCallback() {
+                                RongIM.getInstance().getRongIMClient().removeNotificationQuietHours(new RongIMClient.OperationCallback() {
                                     @Override
                                     public void onSuccess() {
                                         Log.e(TAG, "----yb----移除会话通知周期-onSuccess");
                                         Message msg = Message.obtain();
-                                        msg.what =NOTIFICATION_NOCHECKED ;
+                                        msg.what = NOTIFICATION_NOCHECKED;
                                         mHandler.sendMessage(msg);
                                     }
 
@@ -236,7 +240,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                                     public void onError(RongIMClient.ErrorCode errorCode) {
                                         Log.e(TAG, "----yb-----移除会话通知周期-oonError:" + errorCode.getValue());
                                     }
-                                } );
+                                });
                             }
                         });
 
@@ -344,7 +348,7 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                     if (spanMins > 0 && spanMins < 1440) {
                         Log.e("", "----设置勿扰时间startTime；" + startTime + "---spanMins:" + spanMins);
 
-                        RongIM.getInstance().getRongClient().setConversationNotificationQuietHours(startTime, spanMins, new RongIMClient.OperationCallback() {
+                        RongIM.getInstance().getRongIMClient().setNotificationQuietHours(startTime, spanMins, new RongIMClient.OperationCallback() {
 
                             @Override
                             public void onSuccess() {

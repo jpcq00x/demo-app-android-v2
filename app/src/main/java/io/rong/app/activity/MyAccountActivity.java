@@ -3,15 +3,16 @@ package io.rong.app.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
-import io.rong.app.utils.DeConstants;
+import io.rong.app.utils.Constants;
 import me.add1.resource.Resource;
-import io.rong.imkit.widget.AsyncImageView ;
+import io.rong.imkit.widget.AsyncImageView;
 
 /**
  * Created by Administrator on 2015/3/2.
@@ -33,13 +34,15 @@ public class MyAccountActivity extends BaseActionBarActivity implements View.OnC
     private AsyncImageView mImgMyPortrait;
     private String mUserName;
 
-
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_myaccount;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_myaccount);
+        initView();
+
     }
 
-    @Override
+
     protected void initView() {
         getSupportActionBar().setTitle(R.string.de_actionbar_myacc);
 
@@ -55,16 +58,12 @@ public class MyAccountActivity extends BaseActionBarActivity implements View.OnC
             mTVUsername.setText(mUserName.toString());
         }
 
-    }
-
-    @Override
-    protected void initData() {
-
         mMyPortrait.setOnClickListener(this);
         mMyUsername.setOnClickListener(this);
 //        mResourceHandler = new ResourceHandler.Builder().enableBitmapCache().build(this);
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -85,7 +84,7 @@ public class MyAccountActivity extends BaseActionBarActivity implements View.OnC
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         switch (resultCode) {
-            case DeConstants.FIX_USERNAME_REQUESTCODE:
+            case Constants.FIX_USERNAME_REQUESTCODE:
                 if (data != null) {
                     mTVUsername.setText(data.getStringExtra("UPDATA_RESULT"));
                     mUserName = data.getStringExtra("UPDATA_RESULT");

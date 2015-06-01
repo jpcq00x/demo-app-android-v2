@@ -8,13 +8,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,22 +34,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
-import io.rong.app.fragment.DeChatroomListFragment;
-import io.rong.app.fragment.DeCustomerFragment;
-import io.rong.app.fragment.DeGroupListFragment;
+import io.rong.app.fragment.ChatRoomListFragment;
+import io.rong.app.fragment.CustomerFragment;
+import io.rong.app.fragment.GroupListFragment;
+import io.rong.app.fragment.TestFragment;
 import io.rong.app.model.Friends;
 import io.rong.app.ui.LoadingDialog;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.common.RongConst;
+import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imkit.fragment.SubConversationListFragment;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 import me.add1.exception.BaseException;
 import me.add1.network.AbstractHttpRequest;
 
-public class MainActivity extends BaseApiActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, ActionBar.OnMenuVisibilityListener {
+public class MainActivity extends BaseApiActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, ActionBar.OnMenuVisibilityListener, Handler.Callback {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     public static final String ACTION_DMEO_RECEIVE_MESSAGE = "action_demo_receive_message";
@@ -117,13 +127,21 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
     private AbstractHttpRequest<Friends> getFriendsHttpRequest;
     private int mNetNum = 0;
     ActivityManager activityManager;
-    @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_main;
-    }
+    private Handler mHandler;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_main);
+        initView();
+        initData();
+
+    }
+
+
     protected void initView() {
+        mHandler = new Handler(this);
+        mDialog = new LoadingDialog(this);
         mFragmentManager = getSupportFragmentManager();
         getSupportActionBar().setTitle(R.string.main_name);
         DisplayMetrics dm = new DisplayMetrics();
@@ -149,13 +167,19 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         // 获取布局填充器
         mInflater = (LayoutInflater) this
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
+        if (getIntent() != null) {
+            if (getIntent().hasExtra("PUSH_CONTEXT")) {
+                if (getIntent().getStringExtra("PUSH_CONTEXT").equals("push")) {
+                    Log.e(TAG, "--------0527---PUSH_CONTEXT------" + getIntent().getStringExtra("PUSH_CONTEXT"));
+                    push();
+                }
+            }
+        }
 
     }
 
-
-    @Override
     protected void initData() {
-         activityManager = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
+        activityManager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
         mMainChatroomLiner.setOnClickListener(this);
         mMainConversationLiner.setOnClickListener(this);
         mMainGroupLiner.setOnClickListener(this);
@@ -163,7 +187,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         mDemoFragmentPagerAdapter = new DemoFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mDemoFragmentPagerAdapter);
         mViewPager.setOnPageChangeListener(this);
-        mDialog = new LoadingDialog(this);
+        mViewPager.setOffscreenPageLimit(3);
         //发起获取好友列表的http请求  (注：非融云SDK接口，是demo接口)
         if (DemoContext.getInstance() != null) {
 
@@ -177,13 +201,13 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
 
         final Conversation.ConversationType[] conversationTypes = {Conversation.ConversationType.PRIVATE, Conversation.ConversationType.DISCUSSION,
                 Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
-                Conversation.ConversationType.PUBLICSERVICE, Conversation.ConversationType.APPSERVICE};
+                Conversation.ConversationType.APP_PUBLIC_SERVICE, Conversation.ConversationType.PUBLIC_SERVICE};
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                RongIM.getInstance().setOnReceiveUnreadMessageCountListener(mCountListener, conversationTypes);
+                RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener, conversationTypes);
             }
         }, 500);
 
@@ -197,7 +221,8 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
 
     }
 
-    public RongIM.OnReceiveUnreadMessageCountListener mCountListener = new RongIM.OnReceiveUnreadMessageCountListener() {
+
+    public RongIM.OnReceiveUnreadCountChangedListener mCountListener = new RongIM.OnReceiveUnreadCountChangedListener() {
         @Override
         public void onMessageIncreased(int count) {
             if (count == 0) {
@@ -212,6 +237,65 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         }
     };
 
+
+    public void push() {
+        if (getIntent() != null) {
+            if (DemoContext.getInstance() != null) {
+
+                String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
+                Log.e(TAG,"-------------527----token:"+token);
+                reconnect(token);
+
+            }
+        }
+    }
+
+    /**
+     * 收到push消息后做重连，重新连接融云
+     *
+     * @param token
+     */
+    private void reconnect(String token) {
+
+
+//        mDialog.setCancelable(false);
+        mDialog.setText("正在连接中...");
+        mDialog.show();
+
+        try {
+            RongIM.connect(token, new RongIMClient.ConnectCallback()  {
+                @Override
+                public void onTokenIncorrect() {
+
+                }
+
+                @Override
+                public void onSuccess(String userId) {
+                    Log.e(TAG, "-------------527--onSuccess--userId:" + userId);
+                    if (mDialog != null)
+                        mDialog.dismiss();
+
+                    Intent intent = getIntent();
+                    if (intent != null)
+                        enterFragment(intent);
+
+                }
+
+                @Override
+                public void onError(RongIMClient.ErrorCode e) {
+                    Log.e(TAG, "-------------527--onError--e:" + e);
+                    mDialog.dismiss();
+
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG,"-------------527--Exception--e:"+e);
+            mDialog.dismiss();
+
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public void onMenuVisibilityChanged(boolean b) {
@@ -248,6 +332,11 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
 
     }
 
+    @Override
+    public boolean handleMessage(Message message) {
+        return false;
+    }
+
 
     private class DemoFragmentPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
 
@@ -261,7 +350,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
             switch (i) {
                 case 0:
                     mMainConversationTv.setTextColor(getResources().getColor(R.color.de_title_bg));
-//TODO
+                    //TODO
                     if (mConversationFragment == null) {
                         ConversationListFragment listFragment = ConversationListFragment.getInstance();
                         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
@@ -270,18 +359,19 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                                 .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")
                                 .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "false")
                                 .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")
-                                .appendQueryParameter(Conversation.ConversationType.PUBLICSERVICE.getName(), "false")
-                                .appendQueryParameter(Conversation.ConversationType.APPSERVICE.getName(), "false")
+                                .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")
+                                .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")
                                 .build();
                         listFragment.initFragment(uri);
                         fragment = listFragment;
+//                        fragment = new TestFragment();
                     } else {
                         fragment = mConversationFragment;
                     }
                     break;
                 case 1:
                     if (mGroupListFragment == null) {
-                        mGroupListFragment = new DeGroupListFragment();
+                        mGroupListFragment = new GroupListFragment();
                     }
 
                     fragment = mGroupListFragment;
@@ -290,14 +380,14 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
 
                 case 2:
                     if (mChatroomFragment == null) {
-                        fragment = new DeChatroomListFragment();
+                        fragment = new ChatRoomListFragment();
                     } else {
                         fragment = mChatroomFragment;
                     }
                     break;
                 case 3:
                     if (mCustomerFragment == null) {
-                        fragment = new DeCustomerFragment();
+                        fragment = new CustomerFragment();
                     } else {
                         fragment = mCustomerFragment;
                     }
@@ -420,7 +510,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_item1://发起聊天
-                startActivity(new Intent(this, DeFriendListActivity.class));
+                startActivity(new Intent(this, FriendListActivity.class));
                 break;
             case R.id.add_item2://选择群组
                 if (RongIM.getInstance() != null) {
@@ -457,7 +547,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                             RongIM.getInstance().disconnect(false);
                         }
                         killThisPackageIfRunning(MainActivity.this, "io.rong.imlib.ipc");
-                        android.os.Process.killProcess(Process.myPid());
+                        Process.killProcess(Process.myPid());
                     }
                 });
                 alterDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -524,8 +614,8 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                     if (RongIM.getInstance() != null)
                         RongIM.getInstance().disconnect(true);
 
-                    killThisPackageIfRunning(MainActivity.this,"io.rong.imlib.ipc");
-                    android.os.Process.killProcess(Process.myPid());
+                    killThisPackageIfRunning(MainActivity.this, "io.rong.imlib.ipc");
+                    Process.killProcess(Process.myPid());
 
                 }
             });
@@ -540,9 +630,60 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
 
         return false;
     }
-    public static void killThisPackageIfRunning(final Context context, String packageName){
-        ActivityManager activityManager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+
+    public static void killThisPackageIfRunning(final Context context, String packageName) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         activityManager.killBackgroundProcesses(packageName);
+    }
+
+
+    /**
+     * 消息分发，选择跳转到哪个fragment
+     *
+     * @param intent
+     */
+    private void enterFragment(Intent intent) {
+        String tag = null;
+        if (intent != null) {
+            Fragment fragment = null;
+
+            if (intent.getExtras() != null && intent.getExtras().containsKey(RongConst.EXTRA.CONTENT)) {
+                String fragmentName = intent.getExtras().getString(RongConst.EXTRA.CONTENT);
+                fragment = Fragment.instantiate(this, fragmentName);
+            } else if (intent.getData() != null) {
+                if (intent.getData().getPathSegments().get(0).equals("conversation")) {
+                    tag = "conversation";
+                    if (intent.getData().getLastPathSegment().equals("system")) {
+                        //注释掉的代码为不加输入框的聊天页面（此处作为示例）
+//                        String fragmentName = MessageListFragment.class.getCanonicalName();
+//                        fragment = Fragment.instantiate(this, fragmentName);
+                        startActivity(new Intent(MainActivity.this, NewFriendListActivity.class));
+                        finish();
+                        List<Conversation> conversations = RongIM.getInstance().getRongIMClient().getConversationList(Conversation.ConversationType.SYSTEM);
+                        for (int i = 0; i < conversations.size(); i++) {
+                            RongIM.getInstance().getRongIMClient().clearMessagesUnreadStatus(Conversation.ConversationType.SYSTEM, conversations.get(i).getSenderUserId());
+                        }
+                    } else {
+                        String fragmentName = ConversationFragment.class.getCanonicalName();
+                        fragment = Fragment.instantiate(this, fragmentName);
+                    }
+                } else if (intent.getData().getLastPathSegment().equals("conversationlist")) {
+                    tag = "conversationlist";
+                    String fragmentName = ConversationListFragment.class.getCanonicalName();
+                    fragment = Fragment.instantiate(this, fragmentName);
+                } else if (intent.getData().getLastPathSegment().equals("subconversationlist")) {
+                    tag = "subconversationlist";
+                    String fragmentName = SubConversationListFragment.class.getCanonicalName();
+                    fragment = Fragment.instantiate(this, fragmentName);
+                }
+            }
+
+            if (fragment != null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.de_content, fragment, tag);
+                transaction.addToBackStack(null).commitAllowingStateLoss();
+            }
+        }
     }
 
     @Override
@@ -552,5 +693,6 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         }
         super.onDestroy();
     }
+
 
 }

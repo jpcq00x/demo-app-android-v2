@@ -1,6 +1,7 @@
 package io.rong.app.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,19 +14,12 @@ import io.rong.app.R;
 public class PublicServiceActivity extends BaseActivity {
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_pub_list;
-    }
-
-    @Override
-    protected void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_pub_list);
 
     }
 
-    @Override
-    protected void initData() {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

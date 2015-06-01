@@ -21,17 +21,17 @@ import java.util.List;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
-import io.rong.app.activity.DeNewFriendListActivity;
-import io.rong.app.activity.DePerDetailActivity;
+import io.rong.app.activity.NewFriendListActivity;
+import io.rong.app.activity.PersonalDetailActivity;
 import io.rong.app.activity.MainActivity;
 import io.rong.app.activity.PublicServiceActivity;
 import io.rong.app.adapter.DeAddressMultiChoiceAdapter;
-import io.rong.app.adapter.DeFriendListAdapter;
+import io.rong.app.adapter.FriendListAdapter;
 import io.rong.app.model.Friend;
 import io.rong.app.ui.DePinnedHeaderListView;
 import io.rong.app.ui.DeSwitchGroup;
 import io.rong.app.ui.DeSwitchItemView;
-import io.rong.app.utils.DeConstants;
+import io.rong.app.utils.Constants;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
@@ -40,7 +40,7 @@ import io.rong.imlib.model.UserInfo;
  * Created by Bob on 2015/3/26.
  */
 @SuppressWarnings("ALL")
-public class DeAdressListFragment extends Fragment implements DeSwitchGroup.ItemHander, View.OnClickListener, TextWatcher, DeFriendListAdapter.OnFilterFinished, AdapterView.OnItemClickListener {
+public class DeAdressListFragment extends Fragment implements DeSwitchGroup.ItemHander, View.OnClickListener, TextWatcher, FriendListAdapter.OnFilterFinished, AdapterView.OnItemClickListener {
 
     private static final String TAG = DeAdressListFragment.class.getSimpleName();
     protected DeAddressMultiChoiceAdapter mAdapter;
@@ -156,15 +156,14 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Object tagObj = view.getTag();
-        Log.e(TAG, DeConstants.DEBUG + "--------fragment----onItemClick------------");
+        Log.e(TAG, Constants.DEBUG + "--------fragment----onItemClick------------");
 
         if (tagObj != null && tagObj instanceof DeAddressMultiChoiceAdapter.ViewHolder) {
             DeAddressMultiChoiceAdapter.ViewHolder viewHolder = (DeAddressMultiChoiceAdapter.ViewHolder) tagObj;
             String friendId = viewHolder.friend.getUserId();
             if (friendId == "★001") {
-                Intent intent = new Intent(getActivity(), DeNewFriendListActivity.class);
+                Intent intent = new Intent(getActivity(), NewFriendListActivity.class);
                 startActivityForResult(intent,20);
-//                getActivity().startActivity(new Intent(getActivity(), DeNewFriendListActivity.class));
             } else if (friendId == "★002") {
                 if (RongIM.getInstance() != null) {
                     RongIM.getInstance().startSubConversationList(getActivity(), Conversation.ConversationType.GROUP);
@@ -173,7 +172,7 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
                 Intent intent = new Intent(getActivity(), PublicServiceActivity.class);
                 getActivity().startActivity(intent);
             } else {
-                Intent intent = new Intent(getActivity(), DePerDetailActivity.class);
+                Intent intent = new Intent(getActivity(), PersonalDetailActivity.class);
                 intent.putExtra("PERSONAL", viewHolder.friend.getUserId());
                 startActivityForResult(intent, 19);
             }
@@ -238,14 +237,14 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(TAG, DeConstants.DEBUG + "-----onActivityResult-resultCode---");
-        if (resultCode == DeConstants.DELETE_USERNAME_REQUESTCODE) {
-            Log.e(TAG, DeConstants.DEBUG + "-----onActivityResult-resultCode---" + resultCode);
+        Log.e(TAG, Constants.DEBUG + "-----onActivityResult-resultCode---");
+        if (resultCode == Constants.DELETE_USERNAME_REQUESTCODE) {
+            Log.e(TAG, Constants.DEBUG + "-----onActivityResult-resultCode---" + resultCode);
             updateDate();
         }
 
         if(requestCode == 20){
-            Log.e(TAG, DeConstants.DEBUG + "-----onActivityResult-requestCode---" + requestCode);
+            Log.e(TAG, Constants.DEBUG + "-----onActivityResult-requestCode---" + requestCode);
             updateDate();
         }
 

@@ -3,6 +3,7 @@ package io.rong.app.activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -13,18 +14,19 @@ import io.rong.app.R;
  * Created by Administrator on 2015/3/20.
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class FunctionIntroducedActivity extends BaseActionBarActivity{
+public class FunctionIntroducedActivity extends BaseActionBarActivity {
 
     private WebView mWebView = null;
 
-
-
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_function_introduced;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_function_introduced);
+        initView();
+
     }
 
-    @Override
+
     protected void initView() {
         getSupportActionBar().setTitle(R.string.function_introduce);
 
@@ -43,10 +45,6 @@ public class FunctionIntroducedActivity extends BaseActionBarActivity{
         mWebView.setWebViewClient(mMyWebViewClient);
     }
 
-    @Override
-    protected void initData() {
-
-    }
 
     class MyWebViewClient extends WebViewClient {
 

@@ -1,6 +1,7 @@
 package io.rong.app.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,14 +13,18 @@ import io.rong.app.R;
 import io.rong.app.model.User;
 import io.rong.app.ui.LoadingDialog;
 import io.rong.app.ui.WinToast;
-import io.rong.app.utils.DeConstants;
+import io.rong.app.utils.Constants;
+import io.rong.imlib.model.UserInfo;
 import me.add1.exception.BaseException;
 import me.add1.network.AbstractHttpRequest;
 import io.rong.imkit.widget.AsyncImageView ;
+import me.add1.resource.Resource;
 
 
 /**
  * Created by Bob on 2015/3/26.
+ *
+ * 搜索好友点详情
  */
 public class DePersonalDetailActivity extends BaseApiActivity implements View.OnClickListener {
 
@@ -29,12 +34,18 @@ public class DePersonalDetailActivity extends BaseApiActivity implements View.On
     private Button mAddFriend;
     private AbstractHttpRequest<User> mUserHttpRequest;
     private LoadingDialog mDialog;
-    @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_personal_detail;
-    }
+    private UserInfo user;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_personal_detail);
+        initView();
+        initData();
+
+    }
+
+
     protected void initView() {
         getSupportActionBar().setTitle(R.string.public_add_address);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,12 +55,23 @@ public class DePersonalDetailActivity extends BaseApiActivity implements View.On
         mAddFriend = (Button) findViewById(R.id.de_add_friend);
     }
 
-    @Override
     protected void initData() {
         mAddFriend.setOnClickListener(this);
         mDialog = new LoadingDialog(this);
-        if (getIntent().getStringExtra("SEARCH_USERNAME") != null) {
-            mFriendName.setText(getIntent().getStringExtra("SEARCH_USERNAME").toString());
+
+        if (getIntent().hasExtra("SEARCH_USERID")&&getIntent().hasExtra("SEARCH_USERNAME")&&getIntent().hasExtra("SEARCH_PORTRAIT")) {
+
+//            user = getIntent().getParcelableExtra("SEARCH_USERID");
+
+            mFriendName.setText(getIntent().getStringExtra("SEARCH_USERNAME"));
+            mFriendImg.setResource(new Resource(getIntent().getStringExtra("SEARCH_PORTRAIT")));
+
+        }
+
+        if (getIntent().hasExtra("USER")) {
+            user = getIntent().getParcelableExtra("USER");
+            mFriendName.setText(user.getName());
+            mFriendImg.setResource(new Resource(user.getPortraitUri()));
         }
 
     }
@@ -64,7 +86,7 @@ public class DePersonalDetailActivity extends BaseApiActivity implements View.On
                 WinToast.toast(this,R.string.friend_send_success);
                 Log.e("", "--------onCallApiSuccess----发送好友请求成功---------");
                 Intent intent = new Intent();
-                this.setResult( DeConstants.PERSONAL_REQUESTCODE, intent);
+                this.setResult( Constants.PERSONAL_REQUESTCODE, intent);
 
             }else if(user.getCode() == 301){
                 WinToast.toast(this,R.string.friend_send);

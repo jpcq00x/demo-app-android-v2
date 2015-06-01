@@ -17,7 +17,7 @@ import io.rong.imlib.model.Message;
  * Created by Bob on 2015/4/17.
  */
 @ProviderTag(messageContent = DeAgreedFriendRequestMessage.class, showPortrait = false, centerInHorizontal = false,showProgress = false,hide = true)
-public class DeAgreedFriendRequestMessageProvider extends IContainerItemProvider.MessageProvider<DeAgreedFriendRequestMessage> {
+public  class DeAgreedFriendRequestMessageProvider extends IContainerItemProvider.MessageProvider<DeAgreedFriendRequestMessage> {
     @Override
     public void bindView(View v, int position, DeAgreedFriendRequestMessage content, Message message) {
         ViewHolder viewHolder = (ViewHolder) v.getTag();
@@ -37,6 +37,11 @@ public class DeAgreedFriendRequestMessageProvider extends IContainerItemProvider
     @Override
     public void onItemClick(View view, int position, DeAgreedFriendRequestMessage
             content, Message message) {
+    }
+
+    @Override
+    public void onItemLongClick(View view, int i, DeAgreedFriendRequestMessage deAgreedFriendRequestMessage, Message message) {
+
     }
 
     @Override

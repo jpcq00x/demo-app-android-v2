@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -30,7 +31,7 @@ import java.util.Map;
 import io.rong.app.DemoContext;
 import io.rong.app.R;
 import io.rong.app.model.Status;
-import io.rong.app.ui.DeEditTextHolder;
+import io.rong.app.ui.EditTextHolder;
 import io.rong.app.ui.WinToast;
 import io.rong.app.utils.CommonUtils;
 import io.rong.app.utils.NetUtils;
@@ -41,7 +42,7 @@ import me.add1.network.AbstractHttpRequest;
 /**
  * Created by Bob on 2015/2/6.
  */
-public class RegisterActivity extends BaseApiActivity implements View.OnClickListener, DeEditTextHolder.OnEditTextFocusChangeListener, Handler.Callback {
+public class RegisterActivity extends BaseApiActivity implements View.OnClickListener, EditTextHolder.OnEditTextFocusChangeListener, Handler.Callback {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private static final int HANDLER_REGIST_HAS_NO_FOCUS = 1;
@@ -99,9 +100,9 @@ public class RegisterActivity extends BaseApiActivity implements View.OnClickLis
      * backgroud
      */
     private ImageView mImgBackgroud;
-    DeEditTextHolder mEditUserNameEt;
-    DeEditTextHolder mEditPassWordEt;
-    DeEditTextHolder mEditNickNameEt;
+    EditTextHolder mEditUserNameEt;
+    EditTextHolder mEditPassWordEt;
+    EditTextHolder mEditNickNameEt;
     private Handler mHandler;
     /**
      * 软键盘的控制
@@ -114,11 +115,13 @@ public class RegisterActivity extends BaseApiActivity implements View.OnClickLis
     private RelativeLayout mIsShowTitle;
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_register;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_register);
+        initView();
+        initData();
     }
 
-    @Override
     protected void initView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();//隐藏ActionBar
@@ -164,15 +167,14 @@ public class RegisterActivity extends BaseApiActivity implements View.OnClickLis
         return super.dispatchKeyEvent(event);
     }
 
-    @Override
     protected void initData() {
         mRegisteButton.setOnClickListener(this);
         mRegisteUserAgreement.setOnClickListener(this);
         mLeftTitle.setOnClickListener(this);
         mRightTitle.setOnClickListener(this);
-        mEditUserNameEt = new DeEditTextHolder(mRegistEmail, mEmailDeleteFramelayout, null);
-        mEditNickNameEt = new DeEditTextHolder(mRegistNickName, mNickNameDeleteFramelayout, null);
-        mEditPassWordEt = new DeEditTextHolder(mRegistPassword, mPasswordDeleteFramelayout, null);
+        mEditUserNameEt = new EditTextHolder(mRegistEmail, mEmailDeleteFramelayout, null);
+        mEditNickNameEt = new EditTextHolder(mRegistNickName, mNickNameDeleteFramelayout, null);
+        mEditPassWordEt = new EditTextHolder(mRegistPassword, mPasswordDeleteFramelayout, null);
 
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -263,24 +265,24 @@ public class RegisterActivity extends BaseApiActivity implements View.OnClickLis
         }
     }
 
-    private void fillData(final String email, final String password, final String nickName, final String mobile) {
+
+
+    private void fillData() {
         new AsyncTask<Void, Void, String>() {
 
             @Override
             protected String doInBackground(Void... params) {
                 Map<String, String> requestParameter = new HashMap<String, String>();
-                requestParameter.put("email", email);
-                requestParameter.put("username", nickName);
-                requestParameter.put("password", password);
-                requestParameter.put("mobile", mobile);
+                requestParameter.put("", "24");
 
-                String result = NetUtils.sendPostRequest("reg", requestParameter);
+                String result = NetUtils.sendPostRequest("", requestParameter);
                 return result;
             }
 
             @Override
             protected void onPostExecute(String result) {
 
+                Log.e(TAG,"--------onPostExecute-----+"+result);
             }
 
 

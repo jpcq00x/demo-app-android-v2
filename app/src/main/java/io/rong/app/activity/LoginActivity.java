@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -35,11 +36,12 @@ import io.rong.app.model.ApiResult;
 import io.rong.app.model.Friends;
 import io.rong.app.model.Groups;
 import io.rong.app.model.User;
-import io.rong.app.ui.DeEditTextHolder;
+import io.rong.app.ui.EditTextHolder;
 import io.rong.app.ui.LoadingDialog;
 import io.rong.app.ui.WinToast;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.UserInfo;
 import me.add1.exception.BaseException;
@@ -48,7 +50,7 @@ import me.add1.network.AbstractHttpRequest;
 /**
  * Created by Bob on 2015/1/30.
  */
-public class LoginActivity extends BaseApiActivity implements View.OnClickListener, Handler.Callback, DeEditTextHolder.OnEditTextFocusChangeListener {
+public class LoginActivity extends BaseApiActivity implements View.OnClickListener, Handler.Callback, EditTextHolder.OnEditTextFocusChangeListener {
     private static final String TAG = "LoginActivity";
 
     /**
@@ -123,15 +125,17 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
     private List<User> mUserList;
     private List<ApiResult> mResultList;
     private ImageView mImgBackgroud;
-    DeEditTextHolder mEditUserNameEt;
-    DeEditTextHolder mEditPassWordEt;
+    EditTextHolder mEditUserNameEt;
+    EditTextHolder mEditPassWordEt;
 
     @Override
-    protected int setContentViewResId() {
-        return R.layout.de_ac_login;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.de_ac_login);
+        initView();
+        initData();
     }
 
-    @Override
     protected void initView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();//隐藏ActionBar
@@ -158,8 +162,8 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
         mHandler = new Handler(this);
         mDialog = new LoadingDialog(this);
 
-        mEditUserNameEt = new DeEditTextHolder(mUserNameEt, mFrUserNameDelete, null);
-        mEditPassWordEt = new DeEditTextHolder(mPassWordEt, mFrPasswordDelete, null);
+        mEditUserNameEt = new EditTextHolder(mUserNameEt, mFrUserNameDelete, null);
+        mEditPassWordEt = new EditTextHolder(mPassWordEt, mFrPasswordDelete, null);
 
         mHandler.post(new Runnable() {
             @Override
@@ -172,7 +176,6 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
 
     }
 
-    @Override
     protected void initData() {
 
         if (DemoContext.getInstance() != null) {
@@ -251,8 +254,10 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
             if (mDialog != null)
                 mDialog.dismiss();
             WinToast.toast(LoginActivity.this, R.string.login_success);
+//            initTest();
 
             startActivity(new Intent(this, MainActivity.class));
+
             finish();
 
         } else if (msg.what == HANDLER_LOGIN_HAS_FOCUS) {
@@ -307,7 +312,7 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
                 startActivityForResult(intent, REQUEST_CODE_REGISTER);
                 break;
             case R.id.de_login_forgot://忘记密码
-                WinToast.toast(this,"忘记密码");
+                WinToast.toast(this, "忘记密码");
                 break;
             case R.id.de_right://忘记密码
                 Intent intent1 = new Intent(this, RegisterActivity.class);
@@ -359,27 +364,31 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
              */
             Log.e("LoginActivity", "---------onSuccess gettoken----------:" + token);
             RongIM.connect(token, new RongIMClient.ConnectCallback() {
+                        @Override
+                        public void onTokenIncorrect() {
 
-                @Override
-                public void onSuccess(String userId) {
-                    Log.e("LoginActivity", "---------onSuccess userId----------:" + userId);
+                        }
 
-                    getUserInfoHttpRequest = DemoContext.getInstance().getDemoApi().getFriends(LoginActivity.this);
+                        @Override
+                        public void onSuccess(String userId) {
+                            Log.e("LoginActivity", "---------onSuccess userId----------:" + userId);
 
-                    SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
-                    edit.putString("DEMO_USERID", userId);
-                    edit.apply();
-                    RongIM.getInstance().setUserInfoAttachedState(true);
+                            getUserInfoHttpRequest = DemoContext.getInstance().getDemoApi().getFriends(LoginActivity.this);
 
-                    RongCloudEvent.getInstance().setOtherListener();
-                }
+                            SharedPreferences.Editor edit = DemoContext.getInstance().getSharedPreferences().edit();
+                            edit.putString("DEMO_USERID", userId);
+                            edit.apply();
 
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                    mHandler.obtainMessage(HANDLER_LOGIN_FAILURE).sendToTarget();
-                    Log.e("LoginActivity", "---------onError ----------:" + errorCode);
-                }
-            });
+                            RongCloudEvent.getInstance().setOtherListener();
+                        }
+
+                        @Override
+                        public void onError(RongIMClient.ErrorCode e) {
+                            mHandler.obtainMessage(HANDLER_LOGIN_FAILURE).sendToTarget();
+                            Log.e("LoginActivity", "---------onError ----------:" + e);
+                        }
+                    }
+            );
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -400,9 +409,8 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
             editor.putString(INTENT_IMAIL, mUserNameEt.getText().toString());
             editor.apply();
         }
-
-
     }
+
 
     @Override
     public void onCallApiSuccess(AbstractHttpRequest request, Object obj) {
@@ -498,7 +506,7 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
                         friendResults.add(info);
                     }
                     friendResults.add(new UserInfo("10000", "新好友消息", Uri.parse("test")));
-                    friendResults.add(new UserInfo("kefu114", "客服11", Uri.parse("http://jdd.kefu.rongcloud.cn/image/service_80x80.png")));
+                    friendResults.add(new UserInfo("kefu114", "客服", Uri.parse("http://jdd.kefu.rongcloud.cn/image/service_80x80.png")));
                     if (DemoContext.getInstance() != null)
                         //将数据提供给用户信息提供者
                         DemoContext.getInstance().setUserInfos(friendResults);
