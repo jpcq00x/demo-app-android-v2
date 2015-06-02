@@ -81,12 +81,12 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
             if (DemoContext.getInstance() != null && intent.getData().getQueryParameter("push").equals("true")) {
                 Log.e(TAG,"0518---test-push --"+intent.getData());
 
-                Intent in = new Intent(DemoActivity.this,LoginActivity.class);
-                in.putExtra("PUSH_CONTEXT","push");
-                startActivity(in);
-//                if (DemoContext.getInstance() != null) {
-//                    String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
-//                    reconnect(token);
+//                Intent in = new Intent(DemoActivity.this,LoginActivity.class);
+//                in.putExtra("PUSH_CONTEXT","push");
+//                startActivity(in);
+                if (DemoContext.getInstance() != null) {
+                    String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
+                    reconnect(token);
 //                }
             } else {
                 enterFragment(intent);
