@@ -87,7 +87,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 if (DemoContext.getInstance() != null) {
                     String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
                     reconnect(token);
-//                }
+                }
             } else {
                 enterFragment(intent);
             }
