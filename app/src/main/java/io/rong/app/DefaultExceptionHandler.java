@@ -83,7 +83,6 @@ public class DefaultExceptionHandler implements UncaughtExceptionHandler {
 
         StringBuffer sb = new StringBuffer();
 
-
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
         ex.printStackTrace(printWriter);

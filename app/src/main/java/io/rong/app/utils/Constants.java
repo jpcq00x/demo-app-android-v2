@@ -19,4 +19,6 @@ public class Constants {
     public static final int FIX_USERNAME_REQUESTCODE = 1006;
     //删除好友
     public static final int DELETE_USERNAME_REQUESTCODE = 1007;
+    //修改讨论组名称
+    public static final int FIX_DISCUSSION_NAME = 1008;
 }

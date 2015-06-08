@@ -161,8 +161,15 @@ public class GroupDetailActivity extends BaseApiActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.join_group:
                 if (DemoContext.getInstance() != null) {
+
+                    if(mApiResult.getNumber().equals("500")){
+                        WinToast.toast(GroupDetailActivity.this,"群组人数已满");
+                        return;
+                    }
+
                     if (mDialog != null && !mDialog.isShowing())
                         mDialog.show();
+
                     mJoinRequest = DemoContext.getInstance().getDemoApi().joinGroup(mApiResult.getId(), this);
 
                 }
@@ -205,7 +212,6 @@ public class GroupDetailActivity extends BaseApiActivity implements View.OnClick
                     WinToast.toast(this, "join success ");
                     Log.e(TAG, "-----------join success ----");
                     GroupListFragment.setGroupMap(mApiResult, 1);
-
 
                     if (RongIM.getInstance() != null)
                         RongIM.getInstance().getRongIMClient().joinGroup(mApiResult.getId(), mApiResult.getName(), new RongIMClient.OperationCallback() {

@@ -93,7 +93,6 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
             }
         } else if (intent != null) {
             //程序切到后台，收到消息后点击进入,会执行这里
-            Log.e(TAG,"0518---test-activity--"+intent.getData());
             enterFragment(intent);
         }
     }
@@ -219,14 +218,14 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
 
     protected void initData() {
         if (mConversationType != null) {
-            if (mConversationType.toString().equals("PRIVATE")) {
+            if (mConversationType.equals(Conversation.ConversationType.PRIVATE)) {
                 if (DemoContext.getInstance() != null)
                     getSupportActionBar().setTitle(DemoContext.getInstance().getUserNameByUserId(targetId));
-            } else if (mConversationType.toString().equals("GROUP")) {
+            } else if (mConversationType.equals(Conversation.ConversationType.GROUP)) {
                 if (DemoContext.getInstance() != null) {
                     getSupportActionBar().setTitle(DemoContext.getInstance().getGroupNameById(targetId));
                 }
-            } else if (mConversationType.toString().equals("DISCUSSION")) {
+            } else if (mConversationType.equals(Conversation.ConversationType.DISCUSSION)) {
                 if (targetId != null) {
                     RongIM.getInstance().getRongIMClient().getDiscussion(targetId, new RongIMClient.ResultCallback<Discussion>() {
                         @Override
@@ -245,15 +244,15 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 } else {
                     getSupportActionBar().setTitle("讨论组");
                 }
-            } else if (mConversationType.toString().equals("SYSTEM")) {
+            } else if (mConversationType.equals(Conversation.ConversationType.SYSTEM)) {
                 getSupportActionBar().setTitle("系统会话类型");
-            } else if (mConversationType.toString().equals("CHATROOM")) {
+            } else if (mConversationType.equals(Conversation.ConversationType.CHATROOM)) {
                 getSupportActionBar().setTitle("聊天室");
-            } else if (mConversationType.toString().equals("CUSTOMER_SERVICE")) {
+            } else if (mConversationType.equals(Conversation.ConversationType.CUSTOMER_SERVICE)) {
                 getSupportActionBar().setTitle("客服");
-            }else if(mConversationType.toString().equals("PUBLIC_APP_SERVICE")){
+            }else if(mConversationType.equals(Conversation.ConversationType.APP_PUBLIC_SERVICE)){
                 getSupportActionBar().setTitle("PUBLIC_APP_SERVICE");
-            }else if(mConversationType.toString().equals("PUBLIC_SERVICE")){
+            }else if(mConversationType.equals(Conversation.ConversationType.PUBLIC_SERVICE)){
                 getSupportActionBar().setTitle("PUBLIC_SERVICE");
             }
 

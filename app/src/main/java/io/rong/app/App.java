@@ -42,7 +42,7 @@ public class App extends Application {
                 e.printStackTrace();
             }
         }
-        //友盟错误统计
+        //Crash 日志
         Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler(this));
 
     }

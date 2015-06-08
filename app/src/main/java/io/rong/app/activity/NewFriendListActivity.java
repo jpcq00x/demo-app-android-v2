@@ -55,8 +55,6 @@ public class NewFriendListActivity extends BaseApiActivity implements Handler.Ca
 
     }
 
-
-
     protected void initView() {
         getSupportActionBar().setTitle(R.string.de_new_friends);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -182,6 +180,7 @@ public class NewFriendListActivity extends BaseApiActivity implements Handler.Ca
      * @param id 对方id
      */
     private void sendMessage(String id) {
+//        26590   114
         final DeAgreedFriendRequestMessage message = new DeAgreedFriendRequestMessage(id, "agree");
         if (DemoContext.getInstance() != null) {
             //获取当前用户的 userid

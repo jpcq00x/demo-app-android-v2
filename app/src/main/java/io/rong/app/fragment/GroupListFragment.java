@@ -247,9 +247,12 @@ public class GroupListFragment extends BaseFragment implements AdapterView.OnIte
                     } else {
 
                         if (DemoContext.getInstance() != null) {
+                            if(result.getNumber().equals("500")){
+                                WinToast.toast(getActivity(),"群组人数已满");
+                                return true;
+                            }
                             mUserRequest = DemoContext.getInstance().getDemoApi().joinGroup(result.getId(), GroupListFragment.this);
                         }
-
                     }
                     return true;
                 }

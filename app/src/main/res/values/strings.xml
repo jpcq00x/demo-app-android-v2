@@ -75,6 +75,7 @@
     <string name="de_notification_start">开始时间</string>
     <string name="de_notification_end">结束时间</string>
     <string name="de_fr_delete">删除并退出</string>
+    <string name="de_discussion_name">"讨论组名称"</string>
 
 
 
@@ -122,4 +123,8 @@
     <string name="de_actionbar_sub_system">"系统消息"</string>
     <string name="de_actionbar_sub_defult">"聊天"</string>
     <string name="de_actionbar_set_conversation">"聊天设置"</string>
+    <string name="de_actionbar_set_public">"公众号"</string>
+    <string name="de_actionbar_update_discussion">"修改讨论组昵称"</string>
+
+
 </resources>

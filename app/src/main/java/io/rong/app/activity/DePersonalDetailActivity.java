@@ -61,8 +61,6 @@ public class DePersonalDetailActivity extends BaseApiActivity implements View.On
 
         if (getIntent().hasExtra("SEARCH_USERID")&&getIntent().hasExtra("SEARCH_USERNAME")&&getIntent().hasExtra("SEARCH_PORTRAIT")) {
 
-//            user = getIntent().getParcelableExtra("SEARCH_USERID");
-
             mFriendName.setText(getIntent().getStringExtra("SEARCH_USERNAME"));
             mFriendImg.setResource(new Resource(getIntent().getStringExtra("SEARCH_PORTRAIT")));
 
@@ -72,6 +70,12 @@ public class DePersonalDetailActivity extends BaseApiActivity implements View.On
             user = getIntent().getParcelableExtra("USER");
             mFriendName.setText(user.getName());
             mFriendImg.setResource(new Resource(user.getPortraitUri()));
+            String userID = DemoContext.getInstance().getSharedPreferences().getString("DEMO_USERID","defalt");
+            if(user.getUserId().equals(userID)){
+                mAddFriend.setVisibility(View.GONE);
+            }else if(user.getUserId().equals("kefu114")){
+                mAddFriend.setVisibility(View.GONE);
+            }
         }
 
     }

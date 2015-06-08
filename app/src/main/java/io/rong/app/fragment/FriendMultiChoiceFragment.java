@@ -73,7 +73,6 @@ public class FriendMultiChoiceFragment extends FriendListFragment implements Han
                 }
             }
         }
-        Log.e("", "----demoacitivity  targetId----:" + ",targetIds----" + targetIds + ",mConversationType--" + mConversationType + ",mDiscussionId---" + mDiscussionId);
 
 
         super.onCreate(savedInstanceState);

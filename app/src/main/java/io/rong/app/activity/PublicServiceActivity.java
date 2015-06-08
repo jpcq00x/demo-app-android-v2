@@ -11,12 +11,13 @@ import io.rong.app.R;
 /**
  * Created by rongdev on 15/4/10.
  */
-public class PublicServiceActivity extends BaseActivity {
+public class PublicServiceActivity extends BaseActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.de_pub_list);
+        getSupportActionBar().setTitle(R.string.de_actionbar_set_public);
 
     }
 

@@ -42,8 +42,10 @@ import io.rong.app.fragment.ChatRoomListFragment;
 import io.rong.app.fragment.CustomerFragment;
 import io.rong.app.fragment.GroupListFragment;
 import io.rong.app.fragment.TestFragment;
+import io.rong.app.message.DeAgreedFriendRequestMessage;
 import io.rong.app.model.Friends;
 import io.rong.app.ui.LoadingDialog;
+import io.rong.app.utils.Constants;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.common.RongConst;
 import io.rong.imkit.fragment.ConversationFragment;
@@ -220,7 +222,6 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         this.registerReceiver(mBroadcastReciver, intentFilter);
 
     }
-
 
     public RongIM.OnReceiveUnreadCountChangedListener mCountListener = new RongIM.OnReceiveUnreadCountChangedListener() {
         @Override
@@ -513,9 +514,10 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                 startActivity(new Intent(this, FriendListActivity.class));
                 break;
             case R.id.add_item2://选择群组
-                if (RongIM.getInstance() != null) {
-                    RongIM.getInstance().startSubConversationList(this, Conversation.ConversationType.GROUP);
-                }
+                sendMessage();
+//                if (RongIM.getInstance() != null) {
+//                    RongIM.getInstance().startSubConversationList(this, Conversation.ConversationType.GROUP);
+//                }
                 break;
             case R.id.add_item3://通讯录
                 startActivity(new Intent(MainActivity.this, DeAdressListActivity.class));
@@ -693,6 +695,40 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         }
         super.onDestroy();
     }
+    /**
+     * 添加好友成功后，向对方发送一条消息
+     *
+     */
+    private void sendMessage() {
+//        26590   114
+       String id = "26590";
+        final DeAgreedFriendRequestMessage message = new DeAgreedFriendRequestMessage(id, "agree");
+        if (DemoContext.getInstance() != null) {
+            //获取当前用户的 userid
+            String userid = DemoContext.getInstance().getSharedPreferences().getString("DEMO_USERID", "defalte");
+            UserInfo userInfo = DemoContext.getInstance().getUserInfoById(userid);
+            //把用户信息设置到消息体中，直接发送给对方，可以不设置，非必选项
+            message.setUserInfo(userInfo);
+            if (RongIM.getInstance() != null) {
 
+                //发送一条添加成功的自定义消息，此条消息不会在ui上展示
+                RongIM.getInstance().getRongIMClient().sendMessage(Conversation.ConversationType.PRIVATE, id, message, null, new RongIMClient.SendMessageCallback() {
+                    @Override
+                    public void onError(Integer messageId, RongIMClient.ErrorCode e) {
+                        Log.e(TAG, Constants.DEBUG + "------DeAgreedFriendRequestMessage----onError--");
+                        if (mDialog != null)
+                            mDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        Log.e(TAG, Constants.DEBUG + "------DeAgreedFriendRequestMessage----onSuccess--" + message.getMessage());
+                        if (mDialog != null)
+                            mDialog.dismiss();
+                    }
+                });
+            }
+        }
+    }
 
 }
