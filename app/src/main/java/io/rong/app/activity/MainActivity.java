@@ -514,10 +514,10 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                 startActivity(new Intent(this, FriendListActivity.class));
                 break;
             case R.id.add_item2://选择群组
-                sendMessage();
-//                if (RongIM.getInstance() != null) {
-//                    RongIM.getInstance().startSubConversationList(this, Conversation.ConversationType.GROUP);
-//                }
+//                sendMessage();
+                if (RongIM.getInstance() != null) {
+                    RongIM.getInstance().startSubConversationList(this, Conversation.ConversationType.GROUP);
+                }
                 break;
             case R.id.add_item3://通讯录
                 startActivity(new Intent(MainActivity.this, DeAdressListActivity.class));
