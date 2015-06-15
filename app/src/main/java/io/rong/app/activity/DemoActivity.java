@@ -31,6 +31,7 @@ import io.rong.imkit.fragment.UriFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Discussion;
+import io.rong.imlib.model.PublicServiceInfo;
 
 /**
  * Created by Bob on 2015/3/27.
@@ -79,7 +80,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
         if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong") && intent.getData().getQueryParameter("push") != null) {
             //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
             if (DemoContext.getInstance() != null && intent.getData().getQueryParameter("push").equals("true")) {
-                Log.e(TAG,"0518---test-push --"+intent.getData());
+                Log.e(TAG, "0518---test-push --" + intent.getData());
 
 //                Intent in = new Intent(DemoActivity.this,LoginActivity.class);
 //                in.putExtra("PUSH_CONTEXT","push");
@@ -203,6 +204,7 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 targetIds = intent.getData().getQueryParameter("targetIds");
                 mDiscussionId = intent.getData().getQueryParameter("discussionId");
                 if (targetId != null) {
+//                    intent.getData().getLastPathSegment();//获得当前会话类型
                     mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
                 } else if (targetIds != null)
                     mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
@@ -250,10 +252,35 @@ public class DemoActivity extends BaseActivity implements Handler.Callback {
                 getSupportActionBar().setTitle("聊天室");
             } else if (mConversationType.equals(Conversation.ConversationType.CUSTOMER_SERVICE)) {
                 getSupportActionBar().setTitle("客服");
-            }else if(mConversationType.equals(Conversation.ConversationType.APP_PUBLIC_SERVICE)){
-                getSupportActionBar().setTitle("PUBLIC_APP_SERVICE");
-            }else if(mConversationType.equals(Conversation.ConversationType.PUBLIC_SERVICE)){
-                getSupportActionBar().setTitle("PUBLIC_SERVICE");
+            } else if (mConversationType.equals(Conversation.ConversationType.APP_PUBLIC_SERVICE)) {
+                if (RongIM.getInstance() != null && RongIM.getInstance().getRongIMClient() != null) {
+                    RongIM.getInstance().getRongIMClient().getPublicServiceProfile(Conversation.PublicServiceType.APP_PUBLIC_SERVICE, targetId, new RongIMClient.ResultCallback<PublicServiceInfo>() {
+                        @Override
+                        public void onSuccess(PublicServiceInfo publicServiceInfo) {
+                            getSupportActionBar().setTitle(publicServiceInfo.getName().toString());
+                        }
+
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
+
+                        }
+                    });
+                }
+
+            } else if (mConversationType.equals(Conversation.ConversationType.PUBLIC_SERVICE)) {
+                if (RongIM.getInstance() != null && RongIM.getInstance().getRongIMClient() != null) {
+                    RongIM.getInstance().getRongIMClient().getPublicServiceProfile(Conversation.PublicServiceType.PUBLIC_SERVICE, targetId, new RongIMClient.ResultCallback<PublicServiceInfo>() {
+                        @Override
+                        public void onSuccess(PublicServiceInfo publicServiceInfo) {
+                            getSupportActionBar().setTitle(publicServiceInfo.getName().toString());
+                        }
+
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
+
+                        }
+                    });
+                }
             }
 
 

@@ -363,7 +363,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                                 .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")
                                 .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")
                                 .build();
-                        listFragment.initFragment(uri);
+                        listFragment.setUri(uri);
                         fragment = listFragment;
 //                        fragment = new TestFragment();
                     } else {

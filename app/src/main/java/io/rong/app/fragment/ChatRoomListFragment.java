@@ -58,6 +58,7 @@ public class ChatRoomListFragment extends Fragment implements AdapterView.OnItem
             switch (position) {
 
                 case 0:
+
                     RongIM.getInstance().startConversation(getActivity(), Conversation.ConversationType.CHATROOM, "chatroom001", "融云客服");
                     break;
                 case 1:

@@ -363,6 +363,7 @@ public class LoginActivity extends BaseApiActivity implements View.OnClickListen
              * http://docs.rongcloud.cn/api/android/imkit/index.html
              */
             Log.e("LoginActivity", "---------onSuccess gettoken----------:" + token);
+//            token = "dNcIdu8Eqtu7iNca1gMhzs2yq+hfEluLjZ78E1qo4hGRHcB01HLt4SCyc1P/x3rYpMLVNO7rD0vC99se33P+Aw==";
             RongIM.connect(token, new RongIMClient.ConnectCallback() {
                         @Override
                         public void onTokenIncorrect() {
