@@ -162,8 +162,8 @@ public class GroupDetailActivity extends BaseApiActivity implements View.OnClick
             case R.id.join_group:
                 if (DemoContext.getInstance() != null) {
 
-                    if(mApiResult.getNumber().equals("500")){
-                        WinToast.toast(GroupDetailActivity.this,"群组人数已满");
+                    if (mApiResult.getNumber().equals("500")) {
+                        WinToast.toast(GroupDetailActivity.this, "群组人数已满");
                         return;
                     }
 

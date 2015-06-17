@@ -19,7 +19,6 @@ package io.rong.app.ui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListAdapter;
@@ -71,7 +70,8 @@ public class DePinnedHeaderListView extends ListView implements AbsListView.OnSc
 //        a.recycle();
         setOnScrollListener(this);
     }
-    public View getPinnedHeaderView(){
+
+    public View getPinnedHeaderView() {
         return mHeaderView;
     }
 
@@ -83,7 +83,7 @@ public class DePinnedHeaderListView extends ListView implements AbsListView.OnSc
         // fading edge;
         // in this particular case we would like to disable the top, but not the
         // bottom edge.
-		/*
+        /*
 		 * if (mHeaderView != null) { setFadingEdgeLength(0); } requestLayout();
 		 */
     }
@@ -132,15 +132,15 @@ public class DePinnedHeaderListView extends ListView implements AbsListView.OnSc
     }
 
     public void configureHeaderView(int position) {
-        if (mHeaderView == null )
+        if (mHeaderView == null)
             return;
 //FIXME
-        if(mAdapter == null)
+        if (mAdapter == null)
             return;
 
 //        if (mListHeaderView != null) {
 
-            position -= getHeaderViewsCount();// 添加listheaderview后会有一个position的误差
+        position -= getHeaderViewsCount();// 添加listheaderview后会有一个position的误差
 //        }
 
         int state = mAdapter.getPinnedHeaderState(position);

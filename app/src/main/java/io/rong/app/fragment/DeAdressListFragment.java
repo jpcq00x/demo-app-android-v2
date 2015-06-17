@@ -21,9 +21,9 @@ import java.util.List;
 
 import io.rong.app.DemoContext;
 import io.rong.app.R;
+import io.rong.app.activity.MainActivity;
 import io.rong.app.activity.NewFriendListActivity;
 import io.rong.app.activity.PersonalDetailActivity;
-import io.rong.app.activity.MainActivity;
 import io.rong.app.activity.PublicServiceActivity;
 import io.rong.app.adapter.DeAddressMultiChoiceAdapter;
 import io.rong.app.adapter.FriendListAdapter;
@@ -52,6 +52,7 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
     protected List<Friend> mFriendsList;
     private TextView textViwe;
     private ReceiveMessageBroadcastReciver mBroadcastReciver;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.de_list_address, null);
@@ -81,6 +82,7 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
 
         return view;
     }
+
     private class ReceiveMessageBroadcastReciver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -163,7 +165,7 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
             String friendId = viewHolder.friend.getUserId();
             if (friendId == "★001") {
                 Intent intent = new Intent(getActivity(), NewFriendListActivity.class);
-                startActivityForResult(intent,20);
+                startActivityForResult(intent, 20);
             } else if (friendId == "★002") {
                 if (RongIM.getInstance() != null) {
                     RongIM.getInstance().startSubConversationList(getActivity(), Conversation.ConversationType.GROUP);
@@ -221,7 +223,7 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
         }
         ArrayList<Friend> friendList = new ArrayList<Friend>();
         friendList.add(new Friend("★001", "新的朋友", getResources().getResourceName(R.drawable.de_address_new_friend)));
-        friendList.add(new Friend("★002", "群聊",getResources().getResourceName(R.drawable.de_address_group) ));
+        friendList.add(new Friend("★002", "群聊", getResources().getResourceName(R.drawable.de_address_group)));
         friendList.add(new Friend("★003", "公众号", getResources().getResourceName(R.drawable.de_address_public)));
         userMap.put("★", friendList);
         for (int i = 0; i < searchLetters.length; i++) {
@@ -243,7 +245,7 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
             updateDate();
         }
 
-        if(requestCode == 20){
+        if (requestCode == 20) {
             Log.e(TAG, Constants.DEBUG + "-----onActivityResult-requestCode---" + requestCode);
             updateDate();
         }
@@ -252,7 +254,7 @@ public class DeAdressListFragment extends Fragment implements DeSwitchGroup.Item
     }
 
     private void updateDate() {
-        if(mAdapter !=null){
+        if (mAdapter != null) {
             mAdapter = null;
         }
         ArrayList<UserInfo> userInfos = null;

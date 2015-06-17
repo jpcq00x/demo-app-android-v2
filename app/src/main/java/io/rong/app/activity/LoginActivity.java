@@ -41,7 +41,6 @@ import io.rong.app.ui.LoadingDialog;
 import io.rong.app.ui.WinToast;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.UserInfo;
 import me.add1.exception.BaseException;

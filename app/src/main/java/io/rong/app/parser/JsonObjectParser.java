@@ -2,8 +2,6 @@ package io.rong.app.parser;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
@@ -11,20 +9,13 @@ import com.google.gson.stream.MalformedJsonException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPInputStream;
 
-import me.add1.cache.IoUtils;
 import me.add1.exception.InternalException;
 import me.add1.exception.ParseException;
 import me.add1.network.StatusCallback;

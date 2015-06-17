@@ -20,7 +20,7 @@ public abstract class BaseFragment extends Fragment implements ApiCallback {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                onCallApiSuccess(abstractHttpRequest,o);
+                onCallApiSuccess(abstractHttpRequest, o);
             }
         });
     }

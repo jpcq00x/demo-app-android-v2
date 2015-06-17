@@ -32,7 +32,7 @@ public class GsonParser<T extends Serializable> extends JsonObjectParser<T> {
     }
 
     @Override
-    public T jsonParse(JsonReader reader) throws JSONException, IOException, ParseException, InternalException,JsonSyntaxException {
+    public T jsonParse(JsonReader reader) throws JSONException, IOException, ParseException, InternalException, JsonSyntaxException {
         return gson.fromJson(reader, this.type);
     }
 

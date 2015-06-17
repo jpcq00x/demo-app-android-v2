@@ -14,14 +14,14 @@ import java.util.List;
 
 import io.rong.app.R;
 import io.rong.app.model.ApiResult;
+import io.rong.imkit.widget.AsyncImageView;
 import io.rong.imlib.model.Group;
-import io.rong.imkit.widget.AsyncImageView ;
 
 
 /**
  * Created by Bob on 2015/1/31.
  */
-public class GroupListAdapter extends BaseAdapter  {
+public class GroupListAdapter extends BaseAdapter {
     private static final String TAG = GroupListAdapter.class.getSimpleName();
     private Context mContext;
     private LayoutInflater mLayoutInflater;
@@ -71,7 +71,7 @@ public class GroupListAdapter extends BaseAdapter  {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null || convertView.getTag() == null) {
-            convertView = mLayoutInflater.inflate(R.layout.de_item_group, parent,false);
+            convertView = mLayoutInflater.inflate(R.layout.de_item_group, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mGroupName = (TextView) convertView.findViewById(R.id.group_adaper_name);
             viewHolder.mGroupCurrentNum = (TextView) convertView.findViewById(R.id.group_current_num);
@@ -81,13 +81,13 @@ public class GroupListAdapter extends BaseAdapter  {
             viewHolder.mSelectButton = (ImageView) convertView.findViewById(R.id.group_select);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder= (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         if (viewHolder != null) {
             viewHolder.mSelectButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mOnItemButtonClick !=null)
+                    if (mOnItemButtonClick != null)
                         mOnItemButtonClick.onButtonClick(position, v);
                 }
             });
@@ -108,7 +108,7 @@ public class GroupListAdapter extends BaseAdapter  {
         return convertView;
     }
 
-    public interface OnItemButtonClick{
+    public interface OnItemButtonClick {
         public boolean onButtonClick(int position, View view);
 
     }

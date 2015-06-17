@@ -10,7 +10,7 @@ import java.util.List;
 
 import io.rong.app.R;
 import io.rong.app.model.ApiResult;
-import io.rong.imkit.widget.AsyncImageView ;
+import io.rong.imkit.widget.AsyncImageView;
 
 /**
  * Created by Bob on 2015/3/26.
@@ -20,7 +20,7 @@ public class SearchFriendAdapter extends android.widget.BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<ApiResult> mResults;
 
-    public SearchFriendAdapter(List<ApiResult> results, Context context){
+    public SearchFriendAdapter(List<ApiResult> results, Context context) {
         this.mResults = results;
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -44,17 +44,17 @@ public class SearchFriendAdapter extends android.widget.BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if(convertView == null || convertView.getTag() == null){
-            convertView = mLayoutInflater.inflate(R.layout.de_item_search,parent,false);
+        if (convertView == null || convertView.getTag() == null) {
+            convertView = mLayoutInflater.inflate(R.layout.de_item_search, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mSearchName = (TextView) convertView.findViewById(R.id.search_item_name);
             viewHolder.mImageView = (AsyncImageView) convertView.findViewById(R.id.search_adapter_img);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder= (ViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if(viewHolder != null) {
+        if (viewHolder != null) {
             viewHolder.mSearchName.setText(mResults.get(position).getUsername());
 //            viewHolder.mImageView.setImageDrawable(mResults.get(position).getPortrait());
         }
@@ -62,7 +62,7 @@ public class SearchFriendAdapter extends android.widget.BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         TextView mSearchName;
 
         AsyncImageView mImageView;

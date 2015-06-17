@@ -41,7 +41,6 @@ import io.rong.app.R;
 import io.rong.app.fragment.ChatRoomListFragment;
 import io.rong.app.fragment.CustomerFragment;
 import io.rong.app.fragment.GroupListFragment;
-import io.rong.app.fragment.TestFragment;
 import io.rong.app.message.DeAgreedFriendRequestMessage;
 import io.rong.app.model.Friends;
 import io.rong.app.ui.LoadingDialog;
@@ -244,7 +243,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
             if (DemoContext.getInstance() != null) {
 
                 String token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "defult");
-                Log.e(TAG,"-------------527----token:"+token);
+                Log.e(TAG, "-------------527----token:" + token);
                 reconnect(token);
 
             }
@@ -264,7 +263,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         mDialog.show();
 
         try {
-            RongIM.connect(token, new RongIMClient.ConnectCallback()  {
+            RongIM.connect(token, new RongIMClient.ConnectCallback() {
                 @Override
                 public void onTokenIncorrect() {
 
@@ -290,7 +289,7 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
                 }
             });
         } catch (Exception e) {
-            Log.e(TAG,"-------------527--Exception--e:"+e);
+            Log.e(TAG, "-------------527--Exception--e:" + e);
             mDialog.dismiss();
 
             e.printStackTrace();
@@ -695,13 +694,13 @@ public class MainActivity extends BaseApiActivity implements View.OnClickListene
         }
         super.onDestroy();
     }
+
     /**
      * 添加好友成功后，向对方发送一条消息
-     *
      */
     private void sendMessage() {
 //        26590   114
-       String id = "26590";
+        String id = "26590";
         final DeAgreedFriendRequestMessage message = new DeAgreedFriendRequestMessage(id, "agree");
         if (DemoContext.getInstance() != null) {
             //获取当前用户的 userid

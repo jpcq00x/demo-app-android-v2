@@ -35,13 +35,13 @@ public class DeAddressMultiChoiceAdapter extends DeAddressListAdapter {
         name.setText(friend.getNickname());
 
         Resource res = new Resource(friend.getPortrait());
-        if(friend.getUserId().equals("★001")){
+        if (friend.getUserId().equals("★001")) {
             photo.setDefaultDrawable(mContext.getResources().getDrawable(R.drawable.de_address_new_friend));
-        }else if(friend.getUserId().equals("★002")){
+        } else if (friend.getUserId().equals("★002")) {
             photo.setDefaultDrawable(mContext.getResources().getDrawable(R.drawable.de_address_group));
-        }else if(friend.getUserId().equals("★003")){
+        } else if (friend.getUserId().equals("★003")) {
             photo.setDefaultDrawable(mContext.getResources().getDrawable(R.drawable.de_address_public));
-        }else{
+        } else {
             photo.setDefaultDrawable(mContext.getResources().getDrawable(R.drawable.de_default_portrait));
         }
         photo.setResource(res);

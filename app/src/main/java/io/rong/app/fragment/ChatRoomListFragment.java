@@ -2,7 +2,6 @@ package io.rong.app.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import java.util.List;
 
 import io.rong.app.R;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.widget.AsyncImageView;
 import io.rong.imlib.model.Conversation;
-import io.rong.imkit.widget.AsyncImageView ;
 
 /**
  * Created by Administrator on 2015/3/6.
@@ -132,10 +131,10 @@ public class ChatRoomListFragment extends Fragment implements AdapterView.OnItem
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             mViewHolder = new MyHolder();
-            if (convertView != null ) {
+            if (convertView != null) {
                 mViewHolder = (MyHolder) convertView.getTag();
             } else {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.de_item_chatroom, parent,false);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.de_item_chatroom, parent, false);
                 mViewHolder.mIV_Icon = (AsyncImageView) convertView.findViewById(R.id.iv_chatroom_icon);
                 mViewHolder.mTV_Title = (TextView) convertView.findViewById(R.id.tv_chatroom_title);
                 mViewHolder.mTV_DescribeA = (TextView) convertView.findViewById(R.id.tv_chatroom_d_a);

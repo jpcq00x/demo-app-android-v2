@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <item
         android:id="@+id/per_menu"
         android:icon="@drawable/de_ic_setting"

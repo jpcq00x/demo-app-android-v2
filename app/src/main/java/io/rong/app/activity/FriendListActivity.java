@@ -2,7 +2,6 @@ package io.rong.app.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.widget.EditText;
 
 import io.rong.app.R;
 
@@ -19,11 +18,10 @@ public class FriendListActivity extends BaseActivity {
         getSupportActionBar().setTitle(R.string.de_actionbar_set_conversation);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.drawable.de_ic_logo);
-        actionBar .setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
 
     }
-
 
 
 }

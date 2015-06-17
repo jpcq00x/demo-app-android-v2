@@ -12,7 +12,7 @@ import java.util.List;
 
 import io.rong.app.R;
 import io.rong.app.model.ApiResult;
-import io.rong.imkit.widget.AsyncImageView ;
+import io.rong.imkit.widget.AsyncImageView;
 
 /**
  * Created by Bob on 2015/3/26.
@@ -33,7 +33,7 @@ public class NewFriendListAdapter extends android.widget.BaseAdapter {
         this.mOnItemButtonClick = onItemButtonClick;
     }
 
-    public NewFriendListAdapter(List<ApiResult> results, Context context){
+    public NewFriendListAdapter(List<ApiResult> results, Context context) {
         this.mResults = results;
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -59,8 +59,8 @@ public class NewFriendListAdapter extends android.widget.BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if(convertView == null || convertView.getTag() == null){
-            convertView = mLayoutInflater.inflate(R.layout.de_item_friend,parent,false);
+        if (convertView == null || convertView.getTag() == null) {
+            convertView = mLayoutInflater.inflate(R.layout.de_item_friend, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mFrienduUserName = (TextView) convertView.findViewById(R.id.item_friend_username);
 //            viewHolder.mFrienduStateNo = (ImageView) convertView.findViewById(R.id.item_friend_state_no);
@@ -68,52 +68,52 @@ public class NewFriendListAdapter extends android.widget.BaseAdapter {
             viewHolder.mFrienduState = (TextView) convertView.findViewById(R.id.item_friend_state);
             viewHolder.mPortraitImg = (AsyncImageView) convertView.findViewById(R.id.item_friend_portrait);
             convertView.setTag(viewHolder);
-        }else{
+        } else {
             convertView.getTag();
         }
 
-        if(viewHolder != null) {
+        if (viewHolder != null) {
             viewHolder.mFrienduUserName.setText(mResults.get(position).getUsername());
             viewHolder.mFrienduState.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mOnItemButtonClick !=null)
-                        mOnItemButtonClick.onButtonClick(position, v,mResults.get(position).getStatus());
+                    if (mOnItemButtonClick != null)
+                        mOnItemButtonClick.onButtonClick(position, v, mResults.get(position).getStatus());
                 }
             });
-                switch (mResults.get(position).getStatus()){
-                    case 1://好友
-                        viewHolder.mFrienduState.setText("已添加");
-                        viewHolder.mFrienduState.setBackground(null);
-                        break;
-                    case 2://请求添加
-                        viewHolder.mFrienduState.setText("请求添加");
-                        viewHolder.mFrienduState.setBackground(null);
-                        break;
-                    case 3://请求被添加
-                        viewHolder.mFrienduState.setText("添加");
-                        break;
-                    case 4://请求被拒绝
-                        viewHolder.mFrienduState.setText("请求被拒绝");
-                        viewHolder.mFrienduState.setBackground(null);
-                        break;
-                    case 5://我被对方删除
-                        viewHolder.mFrienduState.setText("被删除");
-                        viewHolder.mFrienduState.setBackground(null);
-                        break;
+            switch (mResults.get(position).getStatus()) {
+                case 1://好友
+                    viewHolder.mFrienduState.setText("已添加");
+                    viewHolder.mFrienduState.setBackground(null);
+                    break;
+                case 2://请求添加
+                    viewHolder.mFrienduState.setText("请求添加");
+                    viewHolder.mFrienduState.setBackground(null);
+                    break;
+                case 3://请求被添加
+                    viewHolder.mFrienduState.setText("添加");
+                    break;
+                case 4://请求被拒绝
+                    viewHolder.mFrienduState.setText("请求被拒绝");
+                    viewHolder.mFrienduState.setBackground(null);
+                    break;
+                case 5://我被对方删除
+                    viewHolder.mFrienduState.setText("被删除");
+                    viewHolder.mFrienduState.setBackground(null);
+                    break;
 
-                }
+            }
         }
 
         return convertView;
     }
 
-    public interface OnItemButtonClick{
-        public boolean onButtonClick(int position, View view,int status);
+    public interface OnItemButtonClick {
+        public boolean onButtonClick(int position, View view, int status);
 
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         TextView mFrienduUserName;
 
         TextView mFrienduState;

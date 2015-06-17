@@ -23,11 +23,12 @@ public class CommonUtils {
      * @return
      */
     public static int getScreenHeight(Activity context) {
-        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int height = wm.getDefaultDisplay().getHeight();
         return height;
 
     }
+
     /**
      * 得到屏幕宽度
      *
@@ -35,22 +36,23 @@ public class CommonUtils {
      * @return
      */
     public static int getScreenWidth(Activity context) {
-        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         return width;
     }
+
     /**
      * 得到状态栏高度
      *
      * @param context
      * @return
      */
-    public  static  int getStatusBarHeight(Activity context){
+    public static int getStatusBarHeight(Activity context) {
         int statusHeight = 0;
         Rect frame = new Rect();
         context.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         statusHeight = frame.top;
-        if (0 == statusHeight){
+        if (0 == statusHeight) {
             Class<?> localClass;
             try {
                 localClass = Class.forName("com.android.internal.R$dimen");
@@ -61,10 +63,12 @@ public class CommonUtils {
                 e.printStackTrace();
             }
         }
-        return  statusHeight;
+        return statusHeight;
     }
+
     /**
-     *获得当前的版本信息
+     * 获得当前的版本信息
+     *
      * @return
      */
     public static String[] getVersionInfo(Context context) {
@@ -86,6 +90,7 @@ public class CommonUtils {
 
     /**
      * 邮箱格式是否正确
+     *
      * @param email
      * @return
      */

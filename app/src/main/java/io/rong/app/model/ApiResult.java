@@ -12,43 +12,43 @@ public class ApiResult implements Serializable {
      */
     private String id;
     /**
-     *用户名
+     * 用户名
      */
     private String username;
     /**
-     *用户头像
+     * 用户头像
      */
     private String portrait;
     /**
-     *状态
+     * 状态
      */
     private int status;
     /**
-     *token值
+     * token值
      */
     private String token;
     /**
-     *群组名称
+     * 群组名称
      */
     private String name;
     /**
-     *群组介绍
+     * 群组介绍
      */
     private String introduce;
     /**
-     *群组当前人数
+     * 群组当前人数
      */
     private String number;
     /**
-     *群组最大人数值
+     * 群组最大人数值
      */
     private String max_number;
     /**
-     *群组创建人 id
+     * 群组创建人 id
      */
     private String create_user_id;
     /**
-     *群组创建时间
+     * 群组创建时间
      */
     private String creat_datetime;
 

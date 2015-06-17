@@ -3,14 +3,10 @@ package io.rong.app;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.util.Log;
 
 import io.rong.app.message.DeAgreedFriendRequestMessage;
 import io.rong.app.message.DeContactNotificationMessageProvider;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 
 /**
  * Created by Bob on 2015/1/30.

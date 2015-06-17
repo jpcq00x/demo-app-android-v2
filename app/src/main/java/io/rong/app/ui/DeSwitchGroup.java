@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -72,8 +71,8 @@ public class DeSwitchGroup extends ViewGroup {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
 
-        int cellWidth =1;
-         int cellHeight = 1;
+        int cellWidth = 1;
+        int cellHeight = 1;
         if (mOrientation == HORIZONTAL) {
             if (count != 0) {
                 cellWidth = (width - getPaddingLeft() - getPaddingRight()) / count;

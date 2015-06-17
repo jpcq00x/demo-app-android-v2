@@ -21,8 +21,8 @@ import io.rong.app.R;
 import io.rong.app.model.Friend;
 import io.rong.app.model.FriendSectionIndexer;
 import io.rong.app.ui.DePinnedHeaderAdapter;
+import io.rong.imkit.widget.AsyncImageView;
 import me.add1.resource.Resource;
-import io.rong.imkit.widget.AsyncImageView ;
 
 @SuppressLint("UseSparseArrays")
 public class DeAddressListAdapter extends DePinnedHeaderAdapter<Friend> implements Filterable {
@@ -82,7 +82,7 @@ public class DeAddressListAdapter extends DePinnedHeaderAdapter<Friend> implemen
 
     @Override
     protected View newView(Context context, int partition, List<Friend> data, int position, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_addresslist, parent,false);
+        View view = mInflater.inflate(R.layout.de_item_addresslist, parent, false);
         ViewHolder holder = new ViewHolder();
         newSetTag(view, holder, position, data);
         view.setTag(holder);
@@ -112,7 +112,7 @@ public class DeAddressListAdapter extends DePinnedHeaderAdapter<Friend> implemen
 
     @Override
     protected View newHeaderView(Context context, int partition, List<Friend> data, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_friend_index, parent,false);
+        View view = mInflater.inflate(R.layout.de_item_friend_index, parent, false);
         view.setTag(view.findViewById(R.id.index));
         return view;
     }
@@ -163,14 +163,14 @@ public class DeAddressListAdapter extends DePinnedHeaderAdapter<Friend> implemen
         }
 
         int section = getSectionForPosition(position);
-        Log.e("","0411---------configurePinnedHeader----section:"+section);
+        Log.e("", "0411---------configurePinnedHeader----section:" + section);
 //TODO
         if (section != -1) {
-            if(section == 0){
+            if (section == 0) {
                 cache.titleView.setText("★");
 //                cache.titleView.setHeight(0);
 //                cache.titleView.setVisibility(View.GONE);
-            }else if(section > 0) {
+            } else if (section > 0) {
                 String title = (String) getSectionIndexer().getSections()[section];
                 cache.titleView.setText(title);
             }

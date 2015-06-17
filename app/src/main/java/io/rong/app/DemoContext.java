@@ -181,7 +181,7 @@ public class DemoContext {
 
             if (groupMap.containsKey(groupid)) {
                 groupReturn = groupMap.get(groupid);
-            }else
+            } else
                 return null;
 
         }

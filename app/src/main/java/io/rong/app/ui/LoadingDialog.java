@@ -10,10 +10,9 @@ import io.rong.app.R;
 
 
 /**
- *
  * Created by bob on 2015/1/28.
  */
-public class LoadingDialog extends Dialog{
+public class LoadingDialog extends Dialog {
 
     private TextView mTextView;
 
@@ -33,6 +32,7 @@ public class LoadingDialog extends Dialog{
     public void dismiss() {
         super.dismiss();
     }
+
     public void setText(String s) {
         if (mTextView != null) {
             mTextView.setText(s);

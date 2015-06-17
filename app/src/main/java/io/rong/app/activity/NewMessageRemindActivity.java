@@ -30,7 +30,7 @@ import me.add1.network.AbstractHttpRequest;
 /**
  * Created by Administrator on 2015/3/2.
  */
-public class NewMessageRemindActivity extends BaseApiActivity implements View.OnClickListener,Handler.Callback {
+public class NewMessageRemindActivity extends BaseApiActivity implements View.OnClickListener, Handler.Callback {
 
     private static final int NOTIFICATION_ISCHECKED = 1;
     private static final int NOTIFICATION_NOCHECKED = 2;
@@ -138,11 +138,13 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -203,9 +205,9 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
                                 Date datastart = DateUtils.stringToDate(starttime, mTimeFormat);
                                 Date dataend = DateUtils.stringToDate(mEndTime, mTimeFormat);
                                 long spansTime = DateUtils.compareMin(datastart, dataend);
-                                Log.e("","------结束时间----"+mEndTime);
-                                Log.e("","------开始时间----"+starttime);
-                                Log.e("","------时间间隔----"+spansTime);
+                                Log.e("", "------结束时间----" + mEndTime);
+                                Log.e("", "------开始时间----" + starttime);
+                                Log.e("", "------时间间隔----" + spansTime);
 
                                 setConversationTime(mStartTime, (int) Math.abs(spansTime));
                             }
@@ -293,10 +295,11 @@ public class NewMessageRemindActivity extends BaseApiActivity implements View.On
         }
         return daysTime;
     }
+
     @Override
     public boolean handleMessage(Message msg) {
         SharedPreferences.Editor editor;
-        switch (msg.what){
+        switch (msg.what) {
             case NOTIFICATION_ISCHECKED://打开新消息通知
                 mNewMessageNotice.setChecked(true);
                 mCloseNotifacation.setVisibility(View.VISIBLE);

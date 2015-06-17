@@ -32,7 +32,7 @@ import me.add1.resource.Resource;
 
 /**
  * Created by Bob on 2015/4/7.
- *
+ * <p/>
  * 个人详情
  */
 public class PersonalDetailActivity extends BaseApiActivity implements View.OnClickListener {
@@ -95,13 +95,13 @@ public class PersonalDetailActivity extends BaseApiActivity implements View.OnCl
             mPersonalName.setText(userInfo.getName().toString());
             mPersonalImg.setResource(new Resource(userInfo.getPortraitUri()));
 
-            if(getIntent().hasExtra("SEARCH_CONVERSATION")){
-                String conversation  = getIntent().getStringExtra("SEARCH_CONVERSATION");
-                if(conversation.equals("CUSTOMER_SERVICE")){
+            if (getIntent().hasExtra("SEARCH_CONVERSATION")) {
+                String conversation = getIntent().getStringExtra("SEARCH_CONVERSATION");
+                if (conversation.equals("CUSTOMER_SERVICE")) {
                     mSendMessage.setVisibility(View.GONE);
                 }
             }
-            if(userInfo.getUserId().equals(DemoContext.getInstance().getSharedPreferences().getString("DEMO_USER_ID","defult"))){
+            if (userInfo.getUserId().equals(DemoContext.getInstance().getSharedPreferences().getString("DEMO_USER_ID", "defult"))) {
                 mSendMessage.setVisibility(View.GONE);
             }
         }
@@ -148,8 +148,8 @@ public class PersonalDetailActivity extends BaseApiActivity implements View.OnCl
         switch (v.getId()) {
             case R.id.send_message:
                 if (RongIM.getInstance() != null && DemoContext.getInstance() != null) {
-                    if(friendid != null)
-                    RongIM.getInstance().startPrivateChat(PersonalDetailActivity.this, friendid, DemoContext.getInstance().getUserInfoById(friendid).getName().toString());
+                    if (friendid != null)
+                        RongIM.getInstance().startPrivateChat(PersonalDetailActivity.this, friendid, DemoContext.getInstance().getUserInfoById(friendid).getName().toString());
                 }
                 break;
         }

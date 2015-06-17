@@ -18,8 +18,8 @@ import io.rong.message.ContactNotificationMessage;
 /**
  * Created by Bob on 2015/4/17.
  */
-@ProviderTag(messageContent = ContactNotificationMessage.class, showPortrait = false, centerInHorizontal = true,showProgress = false)
-public  class DeContactNotificationMessageProvider extends IContainerItemProvider.MessageProvider<ContactNotificationMessage> {
+@ProviderTag(messageContent = ContactNotificationMessage.class, showPortrait = false, centerInHorizontal = true, showProgress = false)
+public class DeContactNotificationMessageProvider extends IContainerItemProvider.MessageProvider<ContactNotificationMessage> {
     @Override
     public void bindView(View v, int position, ContactNotificationMessage content, Message message) {
         ViewHolder viewHolder = (ViewHolder) v.getTag();
@@ -50,7 +50,7 @@ public  class DeContactNotificationMessageProvider extends IContainerItemProvide
 
     @Override
     public View newView(Context context, ViewGroup group) {
-        View view = LayoutInflater.from(context).inflate(io.rong.imkit.R.layout.rc_item_information_notification_message, group,false);
+        View view = LayoutInflater.from(context).inflate(io.rong.imkit.R.layout.rc_item_information_notification_message, group, false);
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.contentTextView = (TextView) view.findViewById(io.rong.imkit.R.id.rc_msg);
         viewHolder.contentTextView.setMovementMethod(LinkMovementMethod.getInstance());

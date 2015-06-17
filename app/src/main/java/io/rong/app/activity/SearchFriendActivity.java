@@ -79,9 +79,9 @@ public class SearchFriendActivity extends BaseApiActivity implements View.OnClic
                             mResultList.add(friends.getResult().get(i));
                             Log.e("", "------onCallApiSuccess-user.getCode() == 200)-----" + friends.getResult().get(0).getId().toString());
                         }
-                            adapter = new SearchFriendAdapter(mResultList, SearchFriendActivity.this);
-                            mListSearch.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+                        adapter = new SearchFriendAdapter(mResultList, SearchFriendActivity.this);
+                        mListSearch.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     }
 
                 }

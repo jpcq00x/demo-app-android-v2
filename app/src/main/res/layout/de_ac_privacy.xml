@@ -34,7 +34,7 @@
 
     </RelativeLayout>
 
-  <include layout="@layout/de_merge_view"/>
+    <include layout="@layout/de_merge_view" />
 
     <RelativeLayout
         android:id="@+id/rl_the_blacklist"
@@ -53,9 +53,7 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/de_merge_view"/>
-
-
+    <include layout="@layout/de_merge_view" />
 
 
 </LinearLayout>

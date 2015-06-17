@@ -47,6 +47,7 @@ public class NewFriendListActivity extends BaseApiActivity implements Handler.Ca
     private List<ApiResult> mResultList;
     private LoadingDialog mDialog;
     private Handler mHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

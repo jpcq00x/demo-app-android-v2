@@ -16,8 +16,8 @@ import io.rong.imlib.model.Message;
 /**
  * Created by Bob on 2015/4/17.
  */
-@ProviderTag(messageContent = DeAgreedFriendRequestMessage.class, showPortrait = false, centerInHorizontal = false,showProgress = false,hide = true)
-public  class DeAgreedFriendRequestMessageProvider extends IContainerItemProvider.MessageProvider<DeAgreedFriendRequestMessage> {
+@ProviderTag(messageContent = DeAgreedFriendRequestMessage.class, showPortrait = false, centerInHorizontal = false, showProgress = false, hide = true)
+public class DeAgreedFriendRequestMessageProvider extends IContainerItemProvider.MessageProvider<DeAgreedFriendRequestMessage> {
     @Override
     public void bindView(View v, int position, DeAgreedFriendRequestMessage content, Message message) {
         ViewHolder viewHolder = (ViewHolder) v.getTag();
@@ -46,7 +46,7 @@ public  class DeAgreedFriendRequestMessageProvider extends IContainerItemProvide
 
     @Override
     public View newView(Context context, ViewGroup group) {
-        View view = LayoutInflater.from(context).inflate(io.rong.imkit.R.layout.rc_item_information_notification_message, group,false);
+        View view = LayoutInflater.from(context).inflate(io.rong.imkit.R.layout.rc_item_information_notification_message, group, false);
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.contentTextView = (TextView) view.findViewById(io.rong.imkit.R.id.rc_msg);
         viewHolder.contentTextView.setMovementMethod(LinkMovementMethod.getInstance());

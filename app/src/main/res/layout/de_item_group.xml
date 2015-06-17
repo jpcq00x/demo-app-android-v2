@@ -73,9 +73,9 @@
 
 
     <!--<View-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="0.5dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:background="@color/group_list_liner" />-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="0.5dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_marginTop="2dp"-->
+    <!--android:background="@color/group_list_liner" />-->
 </RelativeLayout>

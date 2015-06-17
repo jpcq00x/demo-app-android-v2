@@ -34,12 +34,12 @@ import me.add1.network.NetworkManager;
  * 此处是 Demo 的接口，跟融云 SDK 没有关系，此处仅为示例代码，展示 App 的逻辑
  */
 public class DemoApi extends BaseApi {
-//    private static String HOST = "http://119.254.110.241:80/";
-    private static String   HOST = "http://webim.demo.rong.io/";
+    //    private static String HOST = "http://119.254.110.241:80/";
+    private static String HOST = "http://webim.demo.rong.io/";
 
     private final static String DEMO_LOGIN_EMAIL = "email_login";
     private final static String DEMO_FRIENDS = "friends";
-//    private final static String DEMO_FRIENDS = "get_friend";
+    //    private final static String DEMO_FRIENDS = "get_friend";
     private final static String DEMO_REQ = "reg";
     private final static String DEMO_UPDATE_PROFILE = "update_profile";
 
@@ -67,9 +67,8 @@ public class DemoApi extends BaseApi {
      *
      * @param email
      * @param password
-     * @param callback
-     * 1 关羽  生产
-     * 2，张飞 测试
+     * @param callback 1 关羽  生产
+     *                 2，张飞 测试
      * @return
      */
     public AbstractHttpRequest<User> login(String email, String password, ApiCallback<User> callback) {
@@ -150,6 +149,7 @@ public class DemoApi extends BaseApi {
     /**
      * demo server 获取好友
      * 获取所有好友信息
+     *
      * @param callback
      * @return
      */
@@ -260,6 +260,7 @@ public class DemoApi extends BaseApi {
     /**
      * 获取好友列表
      * 获取添加过的好友信息
+     *
      * @param callback
      * @return
      */

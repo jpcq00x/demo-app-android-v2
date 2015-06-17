@@ -193,7 +193,7 @@ public class SOSOLocationActivity extends MapActivity implements
                     .appendQueryParameter("center", mMapView.getMapCenter().getLatitudeE6() / 1E6 + "," + mMapView.getMapCenter()
                             .getLongitudeE6() / 1E6).build();
 
-            Log.d("uri",uri.toString());
+            Log.d("uri", uri.toString());
 
             mMsg = LocationMessage.obtain(poiItem.point.getLatitudeE6() / 1E6,
                     poiItem.point.getLongitudeE6() / 1E6, poiItem.name, uri);
@@ -260,7 +260,7 @@ public class SOSOLocationActivity extends MapActivity implements
                 poiItem.name = regeocoderResult.poilist.get(0).name;
                 poiItem.point = mMapView.getMapCenter();
 
-                if(getIntent().hasExtra("location"))
+                if (getIntent().hasExtra("location"))
                     mHandler.obtainMessage(RENDER_POI, poiItem).sendToTarget();
                 else
                     mHandler.obtainMessage(SHWO_TIPS, poiItem).sendToTarget();

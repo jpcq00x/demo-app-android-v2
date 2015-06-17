@@ -1,11 +1,8 @@
 package io.rong.app.activity;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import io.rong.app.R;
-import me.add1.exception.BaseException;
-import me.add1.network.AbstractHttpRequest;
 
 /**
  * Created by Bob on 2015/3/27.

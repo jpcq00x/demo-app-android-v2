@@ -14,8 +14,8 @@ import java.util.List;
 import io.rong.app.DemoContext;
 import io.rong.app.R;
 import io.rong.app.model.Friend;
+import io.rong.imkit.widget.AsyncImageView;
 import io.rong.imlib.model.UserInfo;
-import io.rong.imkit.widget.AsyncImageView ;
 
 /**
  * Created by Bob on 2015/4/7.
@@ -34,7 +34,7 @@ public class PersonalDetailFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.de_fr_personal_intro, container,false);
+        View view = inflater.inflate(R.layout.de_fr_personal_intro, container, false);
         mPersonalImg = (AsyncImageView) view.findViewById(R.id.personal_portrait);
         mPersonalName = (TextView) view.findViewById(R.id.personal_name);
         mPersonalId = (TextView) view.findViewById(R.id.personal_id);
@@ -54,7 +54,7 @@ public class PersonalDetailFragment extends Fragment implements View.OnClickList
             String friendid = getActivity().getIntent().getStringExtra("PERSONAL");
             UserInfo userInfo = DemoContext.getInstance().getUserInfoById(friendid);
             mPersonalName.setText(userInfo.getName().toString());
-            mPersonalId.setText("Id:"+userInfo.getUserId().toString());
+            mPersonalId.setText("Id:" + userInfo.getUserId().toString());
 
         }
 
@@ -62,7 +62,7 @@ public class PersonalDetailFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.send_message:
 
                 break;

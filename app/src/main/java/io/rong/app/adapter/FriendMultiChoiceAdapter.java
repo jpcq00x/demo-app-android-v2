@@ -11,13 +11,13 @@ import java.util.List;
 
 import io.rong.app.R;
 import io.rong.app.model.Friend;
+import io.rong.imkit.widget.AsyncImageView;
 import io.rong.imlib.model.UserInfo;
 import me.add1.resource.Resource;
-import io.rong.imkit.widget.AsyncImageView ;
 
 public class FriendMultiChoiceAdapter extends FriendListAdapter {
 
-    private static final  String TAG =FriendMultiChoiceAdapter.class.getSimpleName() ;
+    private static final String TAG = FriendMultiChoiceAdapter.class.getSimpleName();
     private List<String> mChoiceFriendIds;
     private MutilChoiceCallback mCallback;
     private ArrayList<Friend> mFriends;
@@ -42,7 +42,7 @@ public class FriendMultiChoiceAdapter extends FriendListAdapter {
         Resource res = new Resource(friend.getPortrait());
 
         photo.setDefaultDrawable(mContext.getResources().getDrawable(io.rong.imkit.R.drawable.rc_default_portrait));
-                photo.setResource(res);
+        photo.setResource(res);
 
         String userId = friend.getUserId();
         holder.userId = userId;

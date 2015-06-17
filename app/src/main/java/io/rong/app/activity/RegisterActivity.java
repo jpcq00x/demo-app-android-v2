@@ -153,7 +153,7 @@ public class RegisterActivity extends BaseApiActivity implements View.OnClickLis
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         event.getKeyCode();
-        switch (event.getKeyCode()){
+        switch (event.getKeyCode()) {
             case KeyEvent.KEYCODE_BACK:
             case KeyEvent.KEYCODE_ESCAPE:
                 Message mess = Message.obtain();
@@ -257,14 +257,13 @@ public class RegisterActivity extends BaseApiActivity implements View.OnClickLis
                 break;
 
             case R.id.de_left://登录
-                startActivity(new Intent(this,LoginActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.de_right://忘记密码
-                WinToast.toast(this,"忘记密码");
+                WinToast.toast(this, "忘记密码");
                 break;
         }
     }
-
 
 
     private void fillData() {
@@ -282,7 +281,7 @@ public class RegisterActivity extends BaseApiActivity implements View.OnClickLis
             @Override
             protected void onPostExecute(String result) {
 
-                Log.e(TAG,"--------onPostExecute-----+"+result);
+                Log.e(TAG, "--------onPostExecute-----+" + result);
             }
 
 

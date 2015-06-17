@@ -20,7 +20,7 @@ public class Friends implements Serializable {
      */
     private List<ApiResult> result;
 
-    public Friends(){
+    public Friends() {
 
     }
 

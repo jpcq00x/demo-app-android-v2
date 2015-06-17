@@ -21,7 +21,7 @@ public class Friend implements Serializable, IFilterModel {
     private boolean isSelected = false;
     private boolean isAdd = false;
 
-    public Friend(){
+    public Friend() {
 
     }
 
@@ -32,6 +32,7 @@ public class Friend implements Serializable, IFilterModel {
 
 
     }
+
     private final void createSeachKey(String nickname) {
 
         if (TextUtils.isEmpty(nickname)) {
@@ -46,9 +47,9 @@ public class Friend implements Serializable, IFilterModel {
 
             } else if (key >= 'a' && key <= 'z') {
                 key -= 32;
-            } else if (key == '★' ) {
+            } else if (key == '★') {
                 key = '★';
-            }else {
+            } else {
                 key = '#';
             }
             searchKey = key;
@@ -118,7 +119,6 @@ public class Friend implements Serializable, IFilterModel {
     public String getFilterKey() {
         return getNickname() + getNicknamePinyin();
     }
-
 
 
     public boolean isAdd() {

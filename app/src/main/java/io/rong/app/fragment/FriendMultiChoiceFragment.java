@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -245,7 +244,7 @@ public class FriendMultiChoiceFragment extends FriendListFragment implements Han
                     } else {
 
                         if (targetIds != null)
-                            mHandle.obtainMessage(HANDLE_UPDATE_CONFIRM_BUTTON, count+targets.length - mMemberIds.size()).sendToTarget();
+                            mHandle.obtainMessage(HANDLE_UPDATE_CONFIRM_BUTTON, count + targets.length - mMemberIds.size()).sendToTarget();
                         else
                             mHandle.obtainMessage(HANDLE_UPDATE_CONFIRM_BUTTON, count - mMemberIds.size()).sendToTarget();
                     }

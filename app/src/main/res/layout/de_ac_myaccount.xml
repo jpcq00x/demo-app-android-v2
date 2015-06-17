@@ -40,7 +40,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/group_list_liner"  />
+        android:background="@color/group_list_liner" />
 
     <RelativeLayout
         android:id="@+id/rl_my_username"
@@ -73,7 +73,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/group_list_liner"  />
+        android:background="@color/group_list_liner" />
 
 
 </LinearLayout>

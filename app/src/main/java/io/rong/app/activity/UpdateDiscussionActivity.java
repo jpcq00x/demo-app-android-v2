@@ -3,7 +3,6 @@ package io.rong.app.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import io.rong.app.DemoContext;
 import io.rong.app.R;
 import io.rong.app.ui.WinToast;
 import io.rong.app.utils.Constants;
@@ -21,7 +19,7 @@ import io.rong.imlib.RongIMClient;
 /**
  * Created by Bob on 15/6/8.
  */
-public class UpdateDiscussionActivity extends  BaseActionBarActivity{
+public class UpdateDiscussionActivity extends BaseActionBarActivity {
 
     private EditText mNewName;
     private TextView mDetail;
@@ -29,6 +27,7 @@ public class UpdateDiscussionActivity extends  BaseActionBarActivity{
     private Handler mHandler;
     private String mTargetId;
     private String mDiscussionName;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,7 @@ public class UpdateDiscussionActivity extends  BaseActionBarActivity{
         mDetail = (TextView) findViewById(R.id.tv_save);
         mDetail.setVisibility(View.GONE);
 
-        if (getIntent()!=null&&getIntent().hasExtra("DEMO_DISCUSSIONIDS")&&getIntent().hasExtra("DEMO_DISCUSSIONNAME")) {
+        if (getIntent() != null && getIntent().hasExtra("DEMO_DISCUSSIONIDS") && getIntent().hasExtra("DEMO_DISCUSSIONNAME")) {
 
             mTargetId = getIntent().getStringExtra("DEMO_DISCUSSIONIDS");
             mDiscussionName = getIntent().getStringExtra("DEMO_DISCUSSIONNAME");
@@ -70,7 +69,7 @@ public class UpdateDiscussionActivity extends  BaseActionBarActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.icon:
-                if(RongIM.getInstance().getRongIMClient() != null)
+                if (RongIM.getInstance().getRongIMClient() != null)
                     RongIM.getInstance().getRongIMClient().setDiscussionName(mTargetId, mNewName.getText().toString(), new RongIMClient.OperationCallback() {
                         @Override
                         public void onSuccess() {

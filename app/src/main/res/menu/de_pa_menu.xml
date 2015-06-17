@@ -7,6 +7,5 @@
         android:id="@+id/action_bar_add"
         android:icon="@drawable/de_ic_add"
         android:title=""
-        app:showAsAction="ifRoom">
-    </item>
+        app:showAsAction="ifRoom"></item>
 </menu>

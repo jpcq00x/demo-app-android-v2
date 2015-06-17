@@ -1,7 +1,6 @@
 package io.rong.app.activity;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import io.rong.app.R;
 

@@ -83,18 +83,18 @@ public class AddressBookProvider extends InputProvider.ExtendProvider {
             String showMessage = contact[0] + "\n" + contact[1];
             final TextMessage content = TextMessage.obtain(showMessage);
 
-            if(RongIM.getInstance().getRongIMClient()!= null)
-            RongIM.getInstance().getRongIMClient().sendMessage(getCurrentConversation().getConversationType(), getCurrentConversation().getTargetId(), content, null, new RongIMClient.SendMessageCallback() {
-                @Override
-                public void onError(Integer integer, RongIMClient.ErrorCode errorCode) {
-                    Log.e("hehe","---------bob---onError--"+errorCode);
-                }
+            if (RongIM.getInstance().getRongIMClient() != null)
+                RongIM.getInstance().getRongIMClient().sendMessage(getCurrentConversation().getConversationType(), getCurrentConversation().getTargetId(), content, null, new RongIMClient.SendMessageCallback() {
+                    @Override
+                    public void onError(Integer integer, RongIMClient.ErrorCode errorCode) {
+                        Log.e("hehe", "---------bob---onError--" + errorCode);
+                    }
 
-                @Override
-                public void onSuccess(Integer integer) {
-                    Log.e("hehe","---------bob---onSuccess--"+integer);
-                }
-            });
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        Log.e("hehe", "---------bob---onSuccess--" + integer);
+                    }
+                });
         }
     }
 

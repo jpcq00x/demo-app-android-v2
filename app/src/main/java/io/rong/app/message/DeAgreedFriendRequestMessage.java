@@ -40,9 +40,9 @@ public class DeAgreedFriendRequestMessage extends MessageContent {
             JSONObject jsonObj = new JSONObject(jsonStr);
             setFriendId(jsonObj.getString("friendId"));
             setMessage(jsonObj.getString("message"));
-            if(jsonObj.has("user")){
+            if (jsonObj.has("user")) {
                 setUserInfo(parseJsonToUserInfo(jsonObj.getJSONObject("user")));
-        }
+            }
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
         }
@@ -56,8 +56,8 @@ public class DeAgreedFriendRequestMessage extends MessageContent {
             jsonObj.put("friendId", friendId);
             jsonObj.put("message", message);
 
-            if(getJSONUserInfo() != null)
-                jsonObj.putOpt("user",getJSONUserInfo());
+            if (getJSONUserInfo() != null)
+                jsonObj.putOpt("user", getJSONUserInfo());
 
         } catch (JSONException e) {
             Log.e("JSONException", e.getMessage());
@@ -80,7 +80,7 @@ public class DeAgreedFriendRequestMessage extends MessageContent {
     public DeAgreedFriendRequestMessage(Parcel in) {
         setFriendId(ParcelUtils.readFromParcel(in));
         setMessage(ParcelUtils.readFromParcel(in));
-        setUserInfo(ParcelUtils.readFromParcel(in,UserInfo.class));
+        setUserInfo(ParcelUtils.readFromParcel(in, UserInfo.class));
     }
 
     /**
@@ -98,6 +98,7 @@ public class DeAgreedFriendRequestMessage extends MessageContent {
             return new DeAgreedFriendRequestMessage[size];
         }
     };
+
     @Override
     public int describeContents() {
         return 0;
@@ -107,7 +108,7 @@ public class DeAgreedFriendRequestMessage extends MessageContent {
     public void writeToParcel(Parcel dest, int flags) {
         ParcelUtils.writeToParcel(dest, message);
         ParcelUtils.writeToParcel(dest, friendId);
-        ParcelUtils.writeToParcel(dest,getUserInfo());
+        ParcelUtils.writeToParcel(dest, getUserInfo());
     }
 
     public String getFriendId() {

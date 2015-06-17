@@ -23,13 +23,13 @@ import io.rong.app.model.Friend;
 import io.rong.app.model.FriendSectionIndexer;
 import io.rong.app.ui.DePinnedHeaderAdapter;
 import io.rong.app.utils.PinyinFilterList;
+import io.rong.imkit.widget.AsyncImageView;
 import me.add1.resource.Resource;
-import io.rong.imkit.widget.AsyncImageView ;
 
 @SuppressLint("UseSparseArrays")
 public class FriendListAdapter extends DePinnedHeaderAdapter<Friend> implements Filterable {
 
-    private static String TAG =FriendListAdapter.class.getSimpleName();
+    private static String TAG = FriendListAdapter.class.getSimpleName();
     private LayoutInflater mInflater;
     private FriendFilter mFilter;
     private ArrayList<View> mViewList;
@@ -74,7 +74,7 @@ public class FriendListAdapter extends DePinnedHeaderAdapter<Friend> implements 
 
     @Override
     protected View newView(Context context, int partition, List<Friend> data, int position, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_friendlist,parent,false);
+        View view = mInflater.inflate(R.layout.de_item_friendlist, parent, false);
         ViewHolder holder = new ViewHolder();
         newSetTag(view, holder, position, data);
         view.setTag(holder);
@@ -91,7 +91,7 @@ public class FriendListAdapter extends DePinnedHeaderAdapter<Friend> implements 
         Friend friend = data.get(position);
         name.setText(friend.getNickname());
 
-        Resource res =new Resource( friend.getPortrait());
+        Resource res = new Resource(friend.getPortrait());
 
         photo.setResource(res);
 
@@ -103,7 +103,7 @@ public class FriendListAdapter extends DePinnedHeaderAdapter<Friend> implements 
 
     @Override
     protected View newHeaderView(Context context, int partition, List<Friend> data, ViewGroup parent) {
-        View view = mInflater.inflate(R.layout.de_item_friend_index, parent,false);
+        View view = mInflater.inflate(R.layout.de_item_friend_index, parent, false);
         view.setTag(view.findViewById(R.id.index));
         return view;
     }

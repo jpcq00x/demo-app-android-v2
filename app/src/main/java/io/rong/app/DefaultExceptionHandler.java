@@ -27,7 +27,7 @@ public class DefaultExceptionHandler implements UncaughtExceptionHandler {
         MobclickAgent.reportError(mContext, ex);
         sendCrashReport(ex);
 
-        Log.e("Rong Crash",ex.getMessage(), ex);
+        Log.e("Rong Crash", ex.getMessage(), ex);
 
         try {
             Thread.sleep(500);

@@ -12,13 +12,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.Observable;
-import java.util.Observer;
 
 import io.rong.app.R;
 import io.rong.imkit.tools.PhotoFragment;
-import me.add1.resource.Resource;
-import me.add1.resource.ResourceHandler;
 
 /**
  * Created by DragonJ on 15/4/13.
@@ -39,21 +35,21 @@ public class PhotoActivity extends BaseActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.save) {
-            if(mDownloaded == null) {
+        if (item.getItemId() == R.id.save) {
+            if (mDownloaded == null) {
                 Toast.makeText(this, "正在下载，请稍后保存！", Toast.LENGTH_SHORT).show();
                 return true;
             }
 
             File path = Environment.getExternalStorageDirectory();
             File dir = new File(path, "RongCloud/Image");
-            if(!dir.exists())
+            if (!dir.exists())
                 dir.mkdirs();
 
             File from = new File(mDownloaded.getPath());
             String name = from.getName() + ".jpg";
             File to = new File(dir.getAbsolutePath(), name);
-            if(to.exists()) {
+            if (to.exists()) {
                 Toast.makeText(this, "文件保存成功！", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -71,15 +67,14 @@ public class PhotoActivity extends BaseActionBarActivity {
                 InputStream inStream = new FileInputStream(oldPath);
                 FileOutputStream fs = new FileOutputStream(newPath);
                 byte[] buffer = new byte[1444];
-                while ( (byteread = inStream.read(buffer)) != -1) {
+                while ((byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread;
                     System.out.println(bytesum);
                     fs.write(buffer, 0, byteread);
                 }
                 inStream.close();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Toast.makeText(this, "文件保存出错！", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         } finally {
@@ -89,7 +84,7 @@ public class PhotoActivity extends BaseActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(mUri != null && mUri.getScheme().startsWith("http")) {
+        if (mUri != null && mUri.getScheme().startsWith("http")) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.de_photo_menu, menu);
             return super.onCreateOptionsMenu(menu);

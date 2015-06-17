@@ -21,8 +21,8 @@ import io.rong.app.R;
 import io.rong.app.model.Friend;
 import io.rong.app.model.FriendSectionIndexer;
 import io.rong.app.ui.DePinnedHeaderAdapter;
-import me.add1.resource.Resource;
 import io.rong.imkit.widget.AsyncImageView;
+import me.add1.resource.Resource;
 
 @SuppressLint("UseSparseArrays")
 public class BlackListAdapter extends DePinnedHeaderAdapter<Friend> implements Filterable {

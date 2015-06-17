@@ -11,8 +11,8 @@ import android.widget.TextView;
 import io.rong.app.DemoContext;
 import io.rong.app.R;
 import io.rong.app.utils.Constants;
-import me.add1.resource.Resource;
 import io.rong.imkit.widget.AsyncImageView;
+import me.add1.resource.Resource;
 
 /**
  * Created by Administrator on 2015/3/2.

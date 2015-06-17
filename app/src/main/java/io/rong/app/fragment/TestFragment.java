@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.rong.app.R;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
 

@@ -102,7 +102,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     private void initDefaultListener() {
         RongIM.setUserInfoProvider(this, true);//设置用户信息提供者。
-        RongIM.setGroupInfoProvider(this,true);//设置群组信息提供者。
+        RongIM.setGroupInfoProvider(this, true);//设置群组信息提供者。
         RongIM.setConversationBehaviorListener(this);//设置会话界面操作的监听器。
         RongIM.setLocationProvider(this);//设置地理位置提供者,不用位置的同学可以注掉此行代码
 //        RongIM.setPushMessageBehaviorListener(this);//自定义 push 通知。
